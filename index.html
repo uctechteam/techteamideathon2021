@@ -1,0 +1,269 @@
+<!DOCTYPE>
+ <html>
+  <head>
+    <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
+    <meta charset="utf-8">
+
+    <!-- Connect Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+    <!-- Connect Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Connect Bootstrap JavaScript and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Make it responsive to small screens -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="/assets/mycustomstyles.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/mystyles.css">
+
+    <title>Ideathon 2021</title>
+
+    <style>
+      iframe {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border: 10px solid;
+        border-radius: 32px;
+        }
+
+        .television {
+        width: 900px;
+        margin: 0 auto;
+        }
+
+        .television__top {
+         width: 40%;
+        margin: auto;
+        position: relative;
+        }
+
+        .television__antenna {
+        width: 10px;
+        height: 120px;
+        background-color: black;
+        margin-bottom: -10px;
+        }
+
+        .television__antenna--left {
+        transform: rotate(-30deg);
+        float: left;
+        }
+
+        .television__antenna--right {
+        transform: rotate(30deg);
+        float: right;
+        }
+
+        .television__antenna__base {
+        height: 18px;
+        background-color: black;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        margin-bottom: 10px;
+        clear: both;
+        position: relative;
+        z-index: 2;
+        }
+          .television__center {
+        position: relative;
+        z-index: 2;
+        width: 900px;
+        height: 500px;
+        background-color: grey;
+        border: solid 3px darkgrey;
+        box-shadow: -10px -10px black;
+        border-radius: 20px;
+        margin: 0 auto;
+        padding: 10px 15px;
+        }
+
+        .television__screen {
+        width: 750px;
+        height: 450px;
+         background: linear-gradient(270deg, #ffffff, #f9fb00, #02feff, #01ff00, #fd00fb, #fb0102, #0301fc, #000000);
+        border-radius: 30px;
+        float: left;
+        }
+
+        .television__channels-wrapper {
+        width: 70px;
+        height: 400px;
+        background-color: brown;
+        border-radius: 48px;
+        float: right;
+        }
+
+        .television__channels {
+        padding: 0.1;
+        }
+
+        .television__channel {
+        list-style-type: none;
+        background-color: brown;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin: 15px;
+        margin-top: 50px;
+        float: center;
+        position: relative;
+        }
+
+          .television__channel_1 {
+        list-style-type: none;
+        background-color: black;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin: -15px;
+        margin-left: 20px;
+        margin-top: 60px;
+        float: center;
+        position: relative;
+        }
+
+        .television__base {
+        width: 60%;
+        margin: auto;
+        }
+
+        .television__base:after {
+        clear: both;
+        content: "";
+        display: table;
+        }
+
+        .television__foot {
+        width: 20px;
+        height: 150px;
+        margin-top: -20px;
+        background-color: black;
+        border: solid 3px grey;
+        border-radius: 30px;
+        }
+
+        .television__foot--left {
+        transform: rotate(30deg);
+        float: left;
+        }
+
+        .television__foot--right {
+        transform: rotate(-30deg);
+        float: right;
+        }
+
+    </style>
+  </head>
+
+  <body>
+    <h1 style="font-size: 48; text-align: center; font-family: bebas neue;">Introducing <br> Ideathon 2021 <h1>
+      <br>
+
+
+    <div class="television">
+   <div class="television__top">
+      <div class="television__antenna television__antenna--left"></div>
+      <div class="television__antenna television__antenna--right"></div>
+      <div class="television__antenna__base"></div>
+   </div><!-- television__top -->
+   <div class="television__center">
+
+      <div class="television__screen">
+
+         <!--<iframe src="" frameborder="0" allowfullscreen></iframe>-->
+      </div><!-- television__screen -->
+      <div class="television__channels-wrapper">
+         <ul class="television__channels">
+            <li class="television__channel"></li>
+            <li class="television__channel_1"></li>
+            <li class="television__channel_1"></li>
+         </ul>
+      </div><!-- television__channels-wrapper -->
+   </div><!-- television__center -->
+   <div class="television__base">
+     <div>
+     </div>
+      <div class="television__foot television__foot--left"></div>
+      <div class="television__foot television__foot--right"></div>
+   </div><!-- television__base -->
+</div><!-- television -->
+
+<!-- Make the static -->
+<!-- 参考: https://qiita.com/ykob/items/4ede3cb11684c8a403f8 -->
+<canvas class="container" id="container"></canvas>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+      attribute vec3 position;
+      attribute vec2 uv;
+
+      varying vec2 vUv;
+
+      void main(void) {
+        vUv = uv;
+        gl_Position = vec4(position, 1.0);
+      }
+
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+      precision highp float;
+      uniform vec2 resolution;
+      uniform vec2 imageResolution;
+      uniform sampler2D texture;
+      uniform float time;
+
+
+      varying vec2 vUv;
+
+      float random (in float x) {
+          return fract(sin(x)*1e4);
+      }
+      float random (vec2 st) {
+          return fract(sin(dot(st.xy,
+                               vec2(12.9898,78.233)))*
+              43758.5453123);
+      }
+
+      void main(void) {
+        vec2 ratio = vec2(
+            min((resolution.x / resolution.y) / (imageResolution.x / imageResolution.y), 1.0),
+            min((resolution.y / resolution.x) / (imageResolution.y / imageResolution.x), 1.0)
+          );
+
+        vec2 uv = vec2(
+            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
+            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
+        );
+
+        vec2 fMosaicScal = vec2(8.0,8.0);
+        vec2 vScreenSize = vec2(1280.0,926.0);
+
+        uv.x = floor(uv.x * vScreenSize.x / fMosaicScal.x) / (vScreenSize.x / fMosaicScal.x);
+        uv.y = floor(uv.y * vScreenSize.y / fMosaicScal.y) / (vScreenSize.y / fMosaicScal.y);
+
+
+        uv.x += time*0.04;
+        uv.x += cos(random(uv+time)*0.2);
+
+
+        gl_FragColor = texture2D(texture, uv);
+      }
+    </script>
+    <!-- partial -->
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js'>
+
+      </script>
+      <script  src="./script.js">
+
+      </script>
+
+  </body>
+
+</html>
