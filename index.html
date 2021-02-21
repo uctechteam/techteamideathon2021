@@ -3,6 +3,9 @@
   <head>
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/mystyles.css">
+    <!-- W3.CSS stylesheet -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <!-- Connect Font Awesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
@@ -14,255 +17,204 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
     <!-- Make it responsive to small screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
+
     <link href="/assets/mycustomstyles.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/mystyles.css">
 
     <title>Ideathon 2021</title>
 
     <style>
-      iframe {
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border: 10px solid;
-        border-radius: 32px;
-        }
+    body {
+      background-image: url("space.jpeg");
+      background-size: cover;
+      background-repeat: no-repeat;
 
-        .television {
-        width: 900px;
-        margin: 0 auto;
-        }
+    }
 
-        .television__top {
-         width: 40%;
-        margin: auto;
-        position: relative;
-        }
+    .page {
+      width: 100%;
+      height: 100%;
 
-        .television__antenna {
-        width: 10px;
-        height: 120px;
-        background-color: black;
-        margin-bottom: -10px;
-        }
+    }
 
-        .television__antenna--left {
-        transform: rotate(-30deg);
-        float: left;
-        }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
 
-        .television__antenna--right {
-        transform: rotate(30deg);
-        float: right;
-        }
-
-        .television__antenna__base {
-        height: 18px;
-        background-color: black;
-        border-top-left-radius: 40px;
-        border-top-right-radius: 40px;
-        margin-bottom: 10px;
+    .content:after
+    {
+        content: '';
         clear: both;
-        position: relative;
-        z-index: 2;
-        }
-          .television__center {
-        position: relative;
-        z-index: 2;
-        width: 900px;
-        height: 500px;
-        background-color: grey;
-        border: solid 3px darkgrey;
-        box-shadow: -10px -10px black;
-        border-radius: 20px;
-        margin: 0 auto;
-        padding: 10px 15px;
-        }
+        display: block;
+    }
 
-        .television__screen {
-        width: 750px;
-        height: 450px;
-         background: linear-gradient(270deg, #ffffff, #f9fb00, #02feff, #01ff00, #fd00fb, #fb0102, #0301fc, #000000);
-        border-radius: 30px;
-        float: left;
-        }
+    .tvcontainer {
+      display:inline-block;
+      margin: 0 auto;
+      position:relative;
+      background-color:transparent;
+    }
 
-        .television__channels-wrapper {
-        width: 70px;
-        height: 400px;
-        background-color: brown;
-        border-radius: 48px;
-        float: right;
-        }
+    .tvImage {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
 
-        .television__channels {
-        padding: 0.1;
-        }
 
-        .television__channel {
-        list-style-type: none;
-        background-color: brown;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        margin: 15px;
-        margin-top: 50px;
-        float: center;
-        position: relative;
-        }
+    .slideshow {
+      position: absolute;
+      top: 57px;
+      left: 58px;
+      z-index: 2;
+      height: 367px;
+      width: 460px;
+    }
 
-          .television__channel_1 {
-        list-style-type: none;
-        background-color: black;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        margin: -15px;
-        margin-left: 20px;
-        margin-top: 60px;
-        float: center;
-        position: relative;
-        }
+    .slide {
+      display:none;
+    }
 
-        .television__base {
-        width: 60%;
-        margin: auto;
-        }
 
-        .television__base:after {
-        clear: both;
-        content: "";
-        display: table;
-        }
+    .leftdiv {
+      overflow: auto;
+      height: 100%;
+    }
 
-        .television__foot {
-        width: 20px;
-        height: 150px;
-        margin-top: -20px;
-        background-color: black;
-        border: solid 3px grey;
-        border-radius: 30px;
-        }
+  #loading {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    background-color: black;
+    opacity: 0.9;
+    z-index: 99;
+    text-align: center;
+}
 
-        .television__foot--left {
-        transform: rotate(30deg);
-        float: left;
-        }
+#loading-image {
+  position: absolute;
+  top: 200px;
+  left: 440px;
+  z-index: 100;
+}
 
-        .television__foot--right {
-        transform: rotate(-30deg);
-        float: right;
-        }
 
     </style>
+
   </head>
 
   <body>
-    <h1 style="font-size: 48; text-align: center; font-family: bebas neue;">Introducing <br> Ideathon 2021 <h1>
+    <div class = "page" style = "color: white;">
+    <div id="loading">
+      <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
+    </div> <!-- loading -->
+
+    <h1 style="font-size: 48; text-align: center; font-family: 'Bebas Neue';">University of Chicago <br> Ideathon 2021 <h1>
       <br>
+      <div class = "content">
+      <div class = "tvcontainer" style = "float: right; width: 50%; height: 600px; width: 500px; margin-right: 50;">
+          <img src="https://global-uploads.webflow.com/5f66b93a2a8208efcab8fdd7/5f8d300ee5ec2d4595d45d40_tc-tv%20(1).png" class="tvImage" width = 100%; height = 100%;>
+          <div class = "slideshow">
+            <img class = "slide" src = "TechAndDemocracy.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "PreservingDataPrivacy.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "EducationAndAccessibility.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "BringingPeopleTogether.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "TechnologyBias.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "EnvironmentalSustainability.jpg" style = "width: 85%; height: 100%;">
+          </div> <!--slideshow -->
+          <!--<img src="https://d3qi0qp55mx5f5.cloudfront.net/www/i/features/feature_slideshows/20130723_Architecture_City.jpg?mtime=1380630668" class="tvImage2" width = 475px; height = 365px;> -->
+        </div> <!-- tvcontainer -->
 
 
-    <div class="television">
-   <div class="television__top">
-      <div class="television__antenna television__antenna--left"></div>
-      <div class="television__antenna television__antenna--right"></div>
-      <div class="television__antenna__base"></div>
-   </div><!-- television__top -->
-   <div class="television__center">
+        <div class = "leftdiv" style = "margin-left: 50; float: left; width: 50%; font-family: 'Bebas Neue' ">
+          <p>april 10 - 11, 2021</p>
+          <p style = "font-size: 20px; ">Conceptualize the <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">future</a> with us.</p>
+          <br>
+          <p>
+            <b><em>what is it?</em></b>
+            <p style = "font-size: 20px;">join us for 2 days (april 10 - 11) where you and your team can identify and propose creative solutions to some
+              of the major issues in tech. these solutions could take the form of a government policy/tax/subsidy, app, program,
+              educational class–anything! absolutely feel free to think outside the box! </p>
 
-      <div class="television__screen">
+            <p style = "font-size: 20px;">at the end of the Ideathon, your team will submit a slideshow presentation and a 3 minute recorded video of an
+              elevator pitch for the problem you are addressing and your solution. we will provide detailed guidelines for what
+              we are looking for in your slide deck. </p>
 
-         <!--<iframe src="" frameborder="0" allowfullscreen></iframe>-->
-      </div><!-- television__screen -->
-      <div class="television__channels-wrapper">
-         <ul class="television__channels">
-            <li class="television__channel"></li>
-            <li class="television__channel_1"></li>
-            <li class="television__channel_1"></li>
-         </ul>
-      </div><!-- television__channels-wrapper -->
-   </div><!-- television__center -->
-   <div class="television__base">
-     <div>
-     </div>
-      <div class="television__foot television__foot--left"></div>
-      <div class="television__foot television__foot--right"></div>
-   </div><!-- television__base -->
-</div><!-- television -->
+            <b><em>who is it for?</em></b>
+            <p style = "font-size: 20px;">anyone who attends the University of Chicago! we want to create an open space for discussion and thoughtful
+              collaboration across all majors and schools. </p>
 
-<!-- Make the static -->
-<!-- 参考: https://qiita.com/ykob/items/4ede3cb11684c8a403f8 -->
-<canvas class="container" id="container"></canvas>
+            <p style = "font-size: 20px;">we are asking for teams of 2-4 students. at the time of registration, you may register as a team or as an
+              individual. during the ideathon, we will match individuals to form teams. </p>
 
-    <script id="vertexShader" type="x-shader/x-vertex">
-      attribute vec3 position;
-      attribute vec2 uv;
+            <b><em>where is it?</em></b>
+            <p style = "font-size: 20px;">it’s completely virtual! in the coming weeks, we will release an agenda with speakers and events–all of which
+              will happen on Zoom. all attendees will join a Slack channel to facilitate real-time updates during the event.</p>
 
-      varying vec2 vUv;
+            <b><em>tell me more</em></b>
+            <p style = "font-size: 20px;">no technical or coding skills necessary! we will have $2500 worth of prizes for the following winning
+              categories: best overall, best design, best presentation, most creative, most uchicago, fan favorite! Grubhub
+              vouchers will also be given to all attendees! </p>
 
-      void main(void) {
-        vUv = uv;
-        gl_Position = vec4(position, 1.0);
+          </p>
+
+          <hr>
+          <p style = "font-size: 20px;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
+             to be notified of latest updates and for the registration form</p>
+
+        </div> <!-- leftdiv -->
+
+    </div> <!-- content -->
+
+  </div> <!--page -->
+
+      <script>
+      var myIndex = 0;
+      carousel();
+
+      function carousel() {
+        var i;
+        var x = document.getElementsByClassName("slide");
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {myIndex = 1}
+        x[myIndex-1].style.display = "block";
+        setTimeout(carousel, 2000); // Change image every 2 seconds
       }
-
-    </script>
-
-    <script id="fragmentShader" type="x-shader/x-fragment">
-      precision highp float;
-      uniform vec2 resolution;
-      uniform vec2 imageResolution;
-      uniform sampler2D texture;
-      uniform float time;
+      </script>
 
 
-      varying vec2 vUv;
-
-      float random (in float x) {
-          return fract(sin(x)*1e4);
-      }
-      float random (vec2 st) {
-          return fract(sin(dot(st.xy,
-                               vec2(12.9898,78.233)))*
-              43758.5453123);
-      }
-
-      void main(void) {
-        vec2 ratio = vec2(
-            min((resolution.x / resolution.y) / (imageResolution.x / imageResolution.y), 1.0),
-            min((resolution.y / resolution.x) / (imageResolution.y / imageResolution.x), 1.0)
-          );
-
-        vec2 uv = vec2(
-            vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-            vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
-        );
-
-        vec2 fMosaicScal = vec2(8.0,8.0);
-        vec2 vScreenSize = vec2(1280.0,926.0);
-
-        uv.x = floor(uv.x * vScreenSize.x / fMosaicScal.x) / (vScreenSize.x / fMosaicScal.x);
-        uv.y = floor(uv.y * vScreenSize.y / fMosaicScal.y) / (vScreenSize.y / fMosaicScal.y);
+      <script>
 
 
-        uv.x += time*0.04;
-        uv.x += cos(random(uv+time)*0.2);
+        $(window).load(function() {
+          setTimeout(function() {
 
+              $('#loading').hide();
 
-        gl_FragColor = texture2D(texture, uv);
-      }
-    </script>
-    <!-- partial -->
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js'>
+          }, 000);
+
+        });
+
 
       </script>
-      <script  src="./script.js">
 
-      </script>
+
 
   </body>
 
