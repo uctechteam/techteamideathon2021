@@ -1,220 +1,446 @@
-<!DOCTYPE>
- <html>
-  <head>
-    <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/mystyles.css">
-    <!-- W3.CSS stylesheet -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- Connect Font Awesome CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+ 
     <!-- Connect Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-    <!-- Connect Bootstrap JavaScript and its dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-
-    <!-- Make it responsive to small screens -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
 
     <link href="/assets/mycustomstyles.css" rel="stylesheet">
 
-
     <title>Ideathon 2021</title>
-
     <style>
+			body {
+				font-family: Monospace;
+				background-color: transparent;
+				margin: 0px;
+				overflow: hidden;
+			}
 
-    body {
-      background-image: url("space.jpeg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 100%;
-    }
+      canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -9999;
+      }
 
-    .page {
-      width: 100%;
-      height: 100%;
-    }
+      .page {
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+      }
 
-    .content {
-      position: relative;
-      z-index: 1;
-    }
+      .content {
+        position: relative;
+        z-index: 1;
+      }
 
-    .content:after
-    {
+      .content:after{
         content: '';
         clear: both;
         display: block;
-    }
-
-    .tvcontainer {
-      display:inline-block;
-      margin: 0 auto;
-      position:relative;
-      background-color:transparent;
-    }
-
-    .tvImage {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      z-index: 1;
-    }
-
-
-    .slideshow {
-      position: absolute;
-      top: 57px;
-      left: 58px;
-      z-index: 2;
-      height: 367px;
-      width: 460px;
-    }
-
-    .slide {
-      display:none;
-    }
-
-
-    .leftdiv {
-      overflow: auto;
-      height: 70vh;
-    }
-
-  #loading {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    display: block;
-    background-color: black;
-    opacity: 0.9;
-    z-index: 99;
-    text-align: center;
-}
-
-#loading-image {
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  z-index: 100;
-}
-
-
-    </style>
-
-  </head>
-
-  <body>
-    <div class = "page" style = "color: white;">
-    <div id="loading">
-      <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
-    </div> <!-- loading -->
-    <div class = "header">
-      <h1 style="margin-top: 30; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">University of Chicago TechTeam<br> Ideathon 2021 <h1>
-    </div> <!-- header -->
-
-      <br>
-
-      <div class = "content">
-        <div class = "leftdiv" style = "margin-left: 50; float: left; width: 50%; font-family: 'Bebas Neue'; ">
-          <h2 style = "font-family: 'Bebas Neue';"> april 10 - 11, 2021</h2>
-          <p style = "font-size: 1.5vw; ">Conceptualize the <a style = "color: red;" href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">future</a> with us.</p>
-          <br>
-          <p>
-            <h2 style = "font-family: 'Bebas Neue';"><b><em>what is it?</em></b></h2>
-            <p style = "font-size: 1.5vw;">join us for 2 days (april 10 - 11) where you and your team can identify and propose creative solutions to some
-              of the major issues in tech. these solutions could take the form of a government policy/tax/subsidy, app, program,
-              educational class–anything! absolutely feel free to think outside the box! </p>
-
-            <p style = "font-size: 1.5vw;">at the end of the Ideathon, your team will submit a slideshow presentation and a 3 minute recorded video of an
-              elevator pitch for the problem you are addressing and your solution. we will provide detailed guidelines for what
-              we are looking for in your slide deck. </p>
-
-            <h2 style = "font-family: 'Bebas Neue';"><b><em>who is it for?</em></b></h2>
-            <p style = "font-size: 1.5vw;">anyone who attends the University of Chicago! we want to create an open space for discussion and thoughtful
-              collaboration across all majors and schools. </p>
-
-            <p style = "font-size: 1.5vw;">we are asking for teams of 2-4 students. at the time of registration, you may register as a team or as an
-              individual. during the ideathon, we will match individuals to form teams. </p>
-
-            <h2 style = "font-family: 'Bebas Neue';"><b><em>where is it?</em></b></h2>
-            <p style = "font-size: 1.5vw;">it’s completely virtual! in the coming weeks, we will release an agenda with speakers and events–all of which
-              will happen on Zoom. all attendees will join a Slack channel to facilitate real-time updates during the event.</p>
-
-            <h2 style = "font-family: 'Bebas Neue';"><b><em>tell me more</em></b></h2>
-            <p style = "font-size: 1.5vw;">no technical or coding skills necessary! we will have $2500 worth of prizes for the following winning
-              categories: best overall, best design, best presentation, most creative, most uchicago, fan favorite! Grubhub
-              vouchers will also be given to all attendees! </p>
-
-          </p>
-
-          <hr>
-          <p style = "font-size: 1.5vw;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
-             to be notified of latest updates and for the registration form</p>
-
-        </div> <!-- leftdiv -->
-
-        <div class = "tvcontainer" style = "float: right; width: 50%; height: 600px; width: 500px; margin-right: 50;">
-            <img src="https://global-uploads.webflow.com/5f66b93a2a8208efcab8fdd7/5f8d300ee5ec2d4595d45d40_tc-tv%20(1).png" class="tvImage" width = 100%; height = 100%;>
-            <div class = "slideshow">
-              <img class = "slide" src = "TechAndDemocracy.jpg" style = "width: 85%; height: 100%;">
-              <img class = "slide" src = "PreservingDataPrivacy.jpg" style = "width: 85%; height: 100%;">
-              <img class = "slide" src = "EducationAndAccessibility.jpg" style = "width: 85%; height: 100%;">
-              <img class = "slide" src = "BringingPeopleTogether.jpg" style = "width: 85%; height: 100%;">
-              <img class = "slide" src = "TechnologyBias.jpg" style = "width: 85%; height: 100%;">
-              <img class = "slide" src = "EnvironmentalSustainability.jpg" style = "width: 85%; height: 100%;">
-            </div> <!--slideshow -->
-            <!--<img src="https://d3qi0qp55mx5f5.cloudfront.net/www/i/features/feature_slideshows/20130723_Architecture_City.jpg?mtime=1380630668" class="tvImage2" width = 475px; height = 365px;> -->
-          </div> <!-- tvcontainer -->
-
-    </div> <!-- content -->
-
-  </div> <!--page -->
-
-      <script>
-      var myIndex = 0;
-      carousel();
-
-      function carousel() {
-        var i;
-        var x = document.getElementsByClassName("slide");
-        for (i = 0; i < x.length; i++) {
-          x[i].style.display = "none";
-        }
-        myIndex++;
-        if (myIndex > x.length) {myIndex = 1}
-        x[myIndex-1].style.display = "block";
-        setTimeout(carousel, 2000); // Change image every 2 seconds
       }
-      </script>
+
+      .tvcontainer {
+        display:inline-block;
+        margin: 0 auto;
+        position:relative;
+        opacity: 0.7;
+      }
+
+      .tvImage {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+      }
 
 
-      <script>
+      .slideshow {
+        position: absolute;
+        top: 57px;
+        left: 58px;
+        z-index: 2;
+        height: 367px;
+        width: 460px;
+      }
+
+      .slide {
+        display:none;
+      }
+
+      .leftdiv {
+        overflow: auto;
+        height: 70vh;
+        padding: 3vh;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        background-color: black;
+        opacity: 0.9;
+        z-index: 99;
+        text-align: center;
+      }
+
+      #loading-image {
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        z-index: 100;
+      }
+
+      /* .threejs {
+        z-index: 1;
+      } */
+
+		</style>
+	</head>
+	<body>
+
+		<script src="build/three.min.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+
+		<script>
+
+			var container, stats;
+			var camera, scene, renderer;
+			var projector, plane;
+			var mouse2D, mouse3D, ray, theta = 45,
+			isShiftDown = false, isCtrlDown = false,
+			target = new THREE.Vector3( 0, 200, 0 );
+			var ROLLOVERED;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+        		container.className += "threejs";
+				document.body.appendChild( container );
+
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '13vh';
+				info.style.width = '100%';
+				info.style.textAlign = 'center';
+				info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>spacebar</strong>: rotate';
+				container.appendChild( info );
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.y = 700;
+
+				scene = new THREE.Scene();
+
+				// Grid
+
+				var size = 500, step = 50;
+
+				var geometry = new THREE.Geometry();
+
+				for ( var i = - size; i <= size; i += step ) {
+
+					geometry.vertices.push( new THREE.Vector3( - size, 0, i ) );
+					geometry.vertices.push( new THREE.Vector3(   size, 0, i ) );
+
+					geometry.vertices.push( new THREE.Vector3( i, 0, - size ) );
+					geometry.vertices.push( new THREE.Vector3( i, 0,   size ) );
+
+				}
+
+				var material = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } );
+
+				var line = new THREE.Line( geometry, material );
+				line.type = THREE.LinePieces;
+				scene.add( line );
+
+				//
+
+				projector = new THREE.Projector();
+
+				plane = new THREE.Mesh( new THREE.PlaneGeometry( 1000, 1000 ), new THREE.MeshBasicMaterial() );
+				plane.rotation.x = - Math.PI / 2;
+				plane.visible = false;
+				scene.add( plane );
+
+				mouse2D = new THREE.Vector3( 0, 10000, 0.5 );
+				ray = new THREE.Ray( camera.position, null );
+
+				// Lights
+
+				var ambientLight = new THREE.AmbientLight( 0x606060 );
+				scene.add( ambientLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff );
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0x808080 );
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
+
+				renderer = new THREE.CanvasRenderer({ alpha: true });
+				renderer.setSize( window.innerWidth, window.innerHeight );
+        		renderer.setClearColor( 0x000000, 0 ); // the default
+
+				container.appendChild(renderer.domElement);
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+				document.addEventListener( 'keydown', onDocumentKeyDown, false );
+				document.addEventListener( 'keyup', onDocumentKeyUp, false );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse2D.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				mouse3D = projector.unprojectVector( mouse2D.clone(), camera );
+				ray.direction = mouse3D.subSelf( camera.position ).normalize();
+
+				var intersects = ray.intersectObjects( scene.children );
+
+				if ( intersects.length > 0 ) {
+
+					if ( ROLLOVERED ) ROLLOVERED.color.setHex( 0x00ff80 );
+
+					ROLLOVERED = intersects[ 0 ].face;
+					ROLLOVERED.color.setHex( 0xff8000 )
+
+				}
+
+			}
+
+			function onDocumentMouseDown( event ) {
+
+				event.preventDefault();
+
+				var intersects = ray.intersectObjects( scene.children );
+
+				if ( intersects.length > 0 ) {
+
+					if ( isCtrlDown ) {
+
+						if ( intersects[ 0 ].object != plane ) {
+
+							scene.remove( intersects[ 0 ].object );
+
+						}
+
+					} else {
+
+						var position = new THREE.Vector3().add( intersects[ 0 ].point, intersects[ 0 ].object.matrixRotationWorld.multiplyVector3( intersects[ 0 ].face.normal.clone() ) );
+
+						var geometry = new THREE.CubeGeometry( 50, 50, 50 );
+
+						for ( var i = 0; i < geometry.faces.length; i ++ ) {
+
+							geometry.faces[ i ].color.setHex( 0x00ff80 );
+
+						}
+
+						var material = new THREE.MeshLambertMaterial( { vertexColors: THREE.FaceColors } );
+
+						var voxel = new THREE.Mesh( geometry, material );
+						voxel.position.x = Math.floor( position.x / 50 ) * 50 + 25;
+						voxel.position.y = Math.floor( position.y / 50 ) * 50 + 25;
+						voxel.position.z = Math.floor( position.z / 50 ) * 50 + 25;
+						voxel.matrixAutoUpdate = false;
+						voxel.updateMatrix();
+						scene.add( voxel );
+
+					}
+
+				}
+			}
+
+			function onDocumentKeyDown( event ) {
+
+				switch( event.keyCode ) {
+
+					case 32: isShiftDown = true; break;
+					case 16: isCtrlDown = true; break;
+
+				}
+
+			}
+
+			function onDocumentKeyUp( event ) {
+
+				switch( event.keyCode ) {
+
+					case 32: isShiftDown = false; break;
+					case 16: isCtrlDown = false; break;
+
+				}
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+				if ( isShiftDown ) {
+
+					theta += mouse2D.x * 3;
+
+				}
+
+				camera.position.x = 1400 * Math.sin( theta * Math.PI / 360 );
+				camera.position.z = 1400 * Math.cos( theta * Math.PI / 360 );
+				camera.lookAt( target );
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+<div class = "page">
+  <!-- <div id="loading">
+    <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
+  </div>  -->
+  <div class = "header">
+    <h1 style="padding-top: 30px; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon 2021 <h1>
+  </div> <!-- header -->
+
+    <br>
+
+    <div class = "content">
+      <div class = "leftdiv" style = "margin-left: 50; float: left; width: 50%; font-family: 'Bebas Neue'; ">
+        <h2 style = "font-family: 'Bebas Neue';"> april 10 - 11, 2021</h2>
+        <p style = "font-size: 1.5vw; ">Conceptualize the <a style = "color: red;" href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">future</a> with us.</p>
+        <br>
+        <p>
+          <h2 style = "font-family: 'Bebas Neue';"><b><em>what is it?</em></b></h2>
+          <p style = "font-size: 1.5vw;">join us for 2 days (april 10 - 11) where you and your team can identify and propose creative solutions to some
+            of the major issues in tech. these solutions could take the form of a government policy/tax/subsidy, app, program,
+            educational class–anything! absolutely feel free to think outside the box! </p>
+
+          <p style = "font-size: 1.5vw;">at the end of the Ideathon, your team will submit a slideshow presentation and a 3 minute recorded video of an
+            elevator pitch for the problem you are addressing and your solution. we will provide detailed guidelines for what
+            we are looking for in your slide deck. </p>
+
+          <h2 style = "font-family: 'Bebas Neue';"><b><em>who is it for?</em></b></h2>
+          <p style = "font-size: 1.5vw;">anyone who attends the University of Chicago! we want to create an open space for discussion and thoughtful
+            collaboration across all majors and schools. </p>
+
+          <p style = "font-size: 1.5vw;">we are asking for teams of 2-4 students. at the time of registration, you may register as a team or as an
+            individual. during the ideathon, we will match individuals to form teams. </p>
+
+          <h2 style = "font-family: 'Bebas Neue';"><b><em>where is it?</em></b></h2>
+          <p style = "font-size: 1.5vw;">it’s completely virtual! in the coming weeks, we will release an agenda with speakers and events–all of which
+            will happen on Zoom. all attendees will join a Slack channel to facilitate real-time updates during the event.</p>
+
+          <h2 style = "font-family: 'Bebas Neue';"><b><em>tell me more</em></b></h2>
+          <p style = "font-size: 1.5vw;">no technical or coding skills necessary! we will have $2500 worth of prizes for the following winning
+            categories: best overall, best design, best presentation, most creative, most uchicago, fan favorite! Grubhub
+            vouchers will also be given to all attendees! </p>
+
+        </p>
+
+        <hr>
+        <p style = "font-size: 1.5vw;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
+           to be notified of latest updates and for the registration form</p>
+
+      </div> <!-- leftdiv -->
+
+      <div class = "tvcontainer" style = "float: right; width: 50%; height: 600px; width: 500px; margin-right: 50;">
+          <img src="television.png" class="tvImage" width = 100%; height = 100%;>
+          <div class = "slideshow">
+            <img class = "slide" src = "TechAndDemocracy.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "PreservingDataPrivacy.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "EducationAndAccessibility.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "BringingPeopleTogether.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "TechnologyBias.jpg" style = "width: 85%; height: 100%;">
+            <img class = "slide" src = "EnvironmentalSustainability.jpg" style = "width: 85%; height: 100%;">
+          </div> <!--slideshow -->
+          <!--<img src="https://d3qi0qp55mx5f5.cloudfront.net/www/i/features/feature_slideshows/20130723_Architecture_City.jpg?mtime=1380630668" class="tvImage2" width = 475px; height = 365px;> -->
+        </div> <!-- tvcontainer -->
+
+  </div> <!-- content -->
+
+</div> <!--page -->
+<script>
+  var myIndex = 0;
+  carousel();
+
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("slide");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+  }
+  </script>
 
 
-      $(window).load(function () {
-              setTimeout(function(){
-                  $('#loading').fadeOut('slow', function () {
-                  });
-              },2000); // set the time here
-          });
-
-      </script>
+  <script>
 
 
+    $(window).load(function() {
+      setTimeout(function() {
 
-  </body>
+          $('#loading').hide();
 
+      }, 2000);
+
+    });
+
+
+  </script>
+
+	</body>
 </html>
