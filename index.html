@@ -426,18 +426,15 @@
   </script>
 
 
-      <script>
+        <script>
 
 
-        $(window).load(function() {
-          setTimeout(function() {
-
-              $('#loading').hide();
-
-          }, 2000);
-
-        });
-
+      $(window).load(function () {
+              setTimeout(function(){
+                  $('#loading').fadeOut('slow', function () {
+                  });
+              },2000); // set the time here
+          });
 
       </script>
 
