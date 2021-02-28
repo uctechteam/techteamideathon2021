@@ -51,59 +51,12 @@
         display: block;
       }
 
-      .tvcontainer {
-        display:inline-block;
-        margin: 0 auto;
-        position:relative;
-        opacity: 0.7;
-      }
 
-      .tvImage {
-        position: relative;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-      }
-
-
-      .slideshow {
-        position: absolute;
-        top: 57px;
-        left: 58px;
-        z-index: 2;
-        height: 367px;
-        width: 460px;
-      }
-
-      .slide {
-        display:none;
-      }
-
-      .leftdiv {
+      .promptdiv {
         overflow: auto;
-        height: 60vh;
+        height: 80vh;
         padding: 3vh;
         background-color: rgba(0, 0, 0, 0.2);
-      }
-
-      #loading {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        position: fixed;
-        display: block;
-        background-color: black;
-        opacity: 0.9;
-        z-index: 99;
-        text-align: center;
-      }
-
-      #loading-image {
-        position: absolute;
-        top: 20%;
-        left: 30%;
-        z-index: 100;
       }
 
       /* .threejs {
@@ -349,13 +302,13 @@
     <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
   </div>  -->
   <div class = "header">
-    <h1 style="padding-top: 30px; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon 2021 Prompts <h1>
+    <h1 style="padding-top: 30px; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">TechTeam Ideathon 2021 Prompts <h1>
   </div> <!-- header -->
 
     <br>
 
     <div class = "content">
-      <div class = "leftdiv" style = "margin-left: 50; float: left; width: 50%; font-family: 'Bebas Neue'; ">
+      <div class = "promptdiv" style = "font-family: 'Bebas Neue'; ">
         <h2 style = "font-family: 'Bebas Neue';"> technology and democracy </h2>
         <p style = "font-size: 1.5vw;"> before leaving the presidential office, Donald Trump was banned from multiple tech platforms. 
 
@@ -399,27 +352,10 @@
         <p style = "font-size: 1.5vw;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
            to be notified of latest updates and for the registration form</p>
 
-      </div> <!-- leftdiv -->
+      </div> <!-- promptdiv -->
 
   </div> <!-- content -->
 
 </div> <!--page -->
-<script>
-  var myIndex = 0;
-  carousel();
-
-  function carousel() {
-    var i;
-    var x = document.getElementsByClassName("slide");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 2000); // Change image every 2 seconds
-  }
-  </script>
-
-	</body>
+</body>
 </html>
