@@ -23,14 +23,91 @@
 				display: none;
 			}
 
-		}
+			body {
+				font-family: Monospace;
+				background-color: transparent;
+				margin: 0px;
+				overflow: auto;
+			}
+
+			.descriptiondiv {
+				margin: auto;
+				width: 60%;
+				padding: 10px;
+			}
+
+			canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -9999;
+      }
+
+      .page {
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .content:after{
+        content: '';
+        clear: both;
+        display: block;
+      }
+
+      .tvcontainer {
+        display:inline-block;
+        margin: 0 auto;
+        position:relative;
+        opacity: 0.7;
+      }
+
+      .tvImage {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+	filter: saturate(20%);
+      }
+
+     .tvImage:hover {
+        position: relative;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+	filter: saturate(300%);
+      }
+
+
+      .slideshow {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        z-index: 2;
+        height: 62%;
+        width: 93%;
+      }
+
+      .slide {
+        display:block;
+      }
+
+		} /*moble */
 
 		@media screen and (min-width: 600px) { /*computer dimensions */
 			.mobile {
 				display: none;
 			}
 
-		}
+
 			body {
 				font-family: Monospace;
 				background-color: transparent;
@@ -109,12 +186,6 @@
         background-color: rgba(0, 0, 0, 0.2);
       }
 
-			.descriptiondiv {
-				margin: auto;
-				width: 60%;
-				padding: 10px;
-			}
-
       #loading {
         width: 100%;
         height: 100%;
@@ -138,6 +209,8 @@
       /* .threejs {
         z-index: 1;
       } */
+
+		} /*computer css */
 
 		</style>
 	</head>
@@ -441,21 +514,28 @@
   </div> <!-- content -->
 
 </div> <!--page -->
-<script>
-  var myIndex = 0;
-  carousel();
 
-  function carousel() {
-    var i;
-    var x = document.getElementsByClassName("slide");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 2000); // Change image every 2 seconds
-  }
+
+<script>
+//carousel should only play on desktop
+var w = document.documentElement.clientWidth || window.innerWidth;
+if (w >= 600) {
+	var myIndex = 0;
+	carousel();
+
+	function carousel() {
+		var i;
+		var x = document.getElementsByClassName("slide");
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		myIndex++;
+		if (myIndex > x.length) {myIndex = 1}
+		x[myIndex-1].style.display = "block";
+		setTimeout(carousel, 2000); // Change image every 2 seconds
+	}
+}
+
   </script>
 
 
@@ -520,11 +600,250 @@
 				<p style = "font-size: 1.5vw;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
 					 to be notified of latest updates and for the registration form</p>
 
-				<p><a href = "prompts.html" style = "color: red; font-size: 1.5vw;"> Check out this year's prompts!</a> </p>
+				<p><a href = "prompts.html" style = "color: red; font-size: 1.5vw;"> Click on the TV!</a> </p>
 
 			</div> <!-- descriptiondiv -->
 
+			<a href="prompts.html" title="Prompts">
+        <div class = "tvcontainer" style = "height: 40vh; width: 40vw;">
+          <img src="https://global-uploads.webflow.com/5f66b93a2a8208efcab8fdd7/5f8d300ee5ec2d4595d45d40_tc-tv%20(1).png" class="tvImage" width = 100%; height = 100%;>
+          <div class = "slideshow">
+            <img class = "slide" src = "clicktoenter.png" style = "width: 85%; height: 100%;">
+          </div> <!--slideshow -->
+
+        </div> <!-- tvcontainer -->
+      </a> <!-- link to prompts page -->
+
 		</div> <!-- content -->
+
+		<script src="build/three.min.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+
+		<script>
+
+			var container, stats;
+			var camera, scene, renderer;
+			var projector, plane;
+			var mouse2D, mouse3D, ray, theta = 45,
+			isShiftDown = false, isCtrlDown = false,
+			target = new THREE.Vector3( 0, 200, 0 );
+			var ROLLOVERED;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+						container.className += "threejs";
+				document.body.appendChild( container );
+
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '13vh';
+				info.style.width = '100%';
+				info.style.textAlign = 'center';
+				container.appendChild( info );
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.y = 700;
+
+				scene = new THREE.Scene();
+
+				// Grid
+
+				var size = 500, step = 50;
+
+				var geometry = new THREE.Geometry();
+
+				for ( var i = - size; i <= size; i += step ) {
+
+					geometry.vertices.push( new THREE.Vector3( - size, 0, i ) );
+					geometry.vertices.push( new THREE.Vector3(   size, 0, i ) );
+
+					geometry.vertices.push( new THREE.Vector3( i, 0, - size ) );
+					geometry.vertices.push( new THREE.Vector3( i, 0,   size ) );
+
+				}
+
+				var material = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } );
+
+				var line = new THREE.Line( geometry, material );
+				line.type = THREE.LinePieces;
+				scene.add( line );
+
+				//
+
+				projector = new THREE.Projector();
+
+				plane = new THREE.Mesh( new THREE.PlaneGeometry( 1000, 1000 ), new THREE.MeshBasicMaterial() );
+				plane.rotation.x = - Math.PI / 2;
+				plane.visible = false;
+				scene.add( plane );
+
+				mouse2D = new THREE.Vector3( 0, 10000, 0.5 );
+				ray = new THREE.Ray( camera.position, null );
+
+				// Lights
+
+				var ambientLight = new THREE.AmbientLight( 0x606060 );
+				scene.add( ambientLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff );
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0x808080 );
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
+
+				renderer = new THREE.CanvasRenderer({ alpha: true });
+				renderer.setSize( window.innerWidth, window.innerHeight );
+						renderer.setClearColor( 0x000000, 0 ); // the default
+
+				container.appendChild(renderer.domElement);
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+				document.addEventListener( 'keydown', onDocumentKeyDown, false );
+				document.addEventListener( 'keyup', onDocumentKeyUp, false );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse2D.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				mouse3D = projector.unprojectVector( mouse2D.clone(), camera );
+				ray.direction = mouse3D.subSelf( camera.position ).normalize();
+
+				var intersects = ray.intersectObjects( scene.children );
+
+				if ( intersects.length > 0 ) {
+
+					if ( ROLLOVERED ) ROLLOVERED.color.setHex( 0x00ff80 );
+
+					ROLLOVERED = intersects[ 0 ].face;
+					ROLLOVERED.color.setHex( 0xff8000 )
+
+				}
+
+			}
+
+			function onDocumentMouseDown( event ) {
+
+				event.preventDefault();
+
+				var intersects = ray.intersectObjects( scene.children );
+
+				if ( intersects.length > 0 ) {
+
+					if ( isCtrlDown ) {
+
+						if ( intersects[ 0 ].object != plane ) {
+
+							scene.remove( intersects[ 0 ].object );
+
+						}
+
+					} else {
+
+						var position = new THREE.Vector3().add( intersects[ 0 ].point, intersects[ 0 ].object.matrixRotationWorld.multiplyVector3( intersects[ 0 ].face.normal.clone() ) );
+
+						var geometry = new THREE.CubeGeometry( 50, 50, 50 );
+
+						for ( var i = 0; i < geometry.faces.length; i ++ ) {
+
+							geometry.faces[ i ].color.setHex( 0x00ff80 );
+
+						}
+
+						var material = new THREE.MeshLambertMaterial( { vertexColors: THREE.FaceColors } );
+
+						var voxel = new THREE.Mesh( geometry, material );
+						voxel.position.x = Math.floor( position.x / 50 ) * 50 + 25;
+						voxel.position.y = Math.floor( position.y / 50 ) * 50 + 25;
+						voxel.position.z = Math.floor( position.z / 50 ) * 50 + 25;
+						voxel.matrixAutoUpdate = false;
+						voxel.updateMatrix();
+						scene.add( voxel );
+
+					}
+
+				}
+			}
+
+			function onDocumentKeyDown( event ) {
+
+				switch( event.keyCode ) {
+
+					case 32: isShiftDown = true; break;
+					case 16: isCtrlDown = true; break;
+
+				}
+
+			}
+
+			function onDocumentKeyUp( event ) {
+
+				switch( event.keyCode ) {
+
+					case 32: isShiftDown = false; break;
+					case 16: isCtrlDown = false; break;
+
+				}
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+				if ( isShiftDown ) {
+
+					theta += mouse2D.x * 3;
+
+				}
+
+				camera.position.x = 1400 * Math.sin( theta * Math.PI / 360 );
+				camera.position.z = 1400 * Math.cos( theta * Math.PI / 360 );
+				camera.lookAt( target );
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
 
 </div> <!-- mobile -->
 
