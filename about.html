@@ -28,6 +28,7 @@
 			display: block;
 			top: 0;
 			left: 0;
+			z-index: 200;
 		}
 
 		.page {
@@ -145,7 +146,7 @@
 		var camera, scene, renderer;
 		var projector, plane;
 		var mouse2D, mouse3D, ray, theta = 0,
-			isShiftDown = false, isCtrlDown = false,
+			isXDown = false, isShiftDown = false,
 			target = new THREE.Vector3(0, 0, 0);
 		var ROLLOVERED;
 
@@ -165,7 +166,7 @@
 			info.style.zIndex = 100;
 			info.style.backgroundColor = 'rgba(0,0,0,0.2)';
 			info.style.textAlign = 'center';
-			info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>spacebar</strong>: rotate';
+			info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>x</strong>: rotate grid';
 			container.appendChild(info);
 
 			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
@@ -302,7 +303,7 @@
 
 			if (intersects.length > 0) {
 
-				if (isCtrlDown) {
+				if (isShiftDown) {
 					if (intersects[0].object != plane) {
 						scene.remove(intersects[0].object);
 					}
@@ -318,15 +319,15 @@
 
 		function onDocumentKeyDown(event) {
 			switch (event.keyCode) {
-				case 32: isShiftDown = true; break;
-				case 16: isCtrlDown = true; break;
+				case 88: isXDown = true; break;  // x key
+				case 16: isShiftDown = true; break;  // shift key
 			}
 		}
 
 		function onDocumentKeyUp(event) {
 			switch (event.keyCode) {
-				case 32: isShiftDown = false; break;
-				case 16: isCtrlDown = false; break;
+				case 88: isXDown = false; break;
+				case 16: isShiftDown = false; break;
 			}
 		}
 
@@ -339,7 +340,7 @@
 		}
 
 		function render() {
-			if (isShiftDown) {
+			if (isXDown) {
 				theta += mouse2D.x * 3;
 			}
 			camera.position.x = 1400 * Math.sin(theta * Math.PI / 360);
