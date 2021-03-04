@@ -141,7 +141,7 @@
 		var container, stats;
 		var camera, scene, renderer;
 		var projector, plane;
-		var mouse2D, mouse3D, ray, theta = 0,
+		var mouse2D, mouse3D, ray, theta = 45,
 			isXDown = false, isShiftDown = false,
 			target = new THREE.Vector3(0, 0, 0);
 		var ROLLOVERED;
@@ -312,8 +312,7 @@
 
 				} else {
 					var position = new THREE.Vector3().add(intersects[0].point, intersects[0].object.matrixRotationWorld.multiplyVector3(intersects[0].face.normal.clone()));
-					addVoxel(scene, intersects, position.x, position.y, position.z);
-
+					addVoxel(scene, intersects, position.x, position.y+window.scrollY, position.z);
 				}
 
 			}
