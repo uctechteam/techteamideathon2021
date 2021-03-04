@@ -55,39 +55,34 @@
 		}
 
 		.tvcontainer {
-			display: inline-block;
-			margin: 0 auto;
 			position: relative;
-			opacity: 0.7;
+			opacity: 0.9;
+			height: 70vh;
 		}
 
 		.tvImage {
-			position: relative;
+			position: absolute;
 			top: 0px;
 			left: 0px;
-			z-index: 1;
-		}
-
-
-		.slideshow {
-			position: absolute;
-			top: 57px;
-			left: 58px;
-			z-index: 2;
-			height: 367px;
-			width: 460px;
+			z-index: -7;
+			margin-top: 5vh;
+			margin-bottom: 5vh;
+			width: 80vw;
+			max-width: 900px;
+     		height: 80vw;
+			max-height: 800px;
 		}
 
 		.slide {
-			display: none;
+			position: relative;
+			top: 10vh;
+			left: 9vw;
+			z-index: -7;
+			width: 60vw;
+			max-width: 700px;
+     		height: 50vw;
+			max-height: 600px;
 		}
-
-		/* .leftdiv {
-			overflow: auto;
-			height: 70vh;
-			padding: 3vh;
-			background-color: rgba(0, 0, 0, 0.2);
-		} */
 
 		#loading {
 			width: 100%;
@@ -119,6 +114,7 @@
 			top: 0;
 			position: fixed;
 			width: 100vw;
+			z-index: 7;
 		}
 
 		.header {
@@ -152,6 +148,7 @@
 
 		init();
 		animate();
+		
 
 		function init() {
 			container = document.createElement('div');
@@ -167,7 +164,9 @@
 			info.style.backgroundColor = 'rgba(0,0,0,0.2)';
 			info.style.textAlign = 'center';
 			info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>x</strong>: rotate grid';
-			container.appendChild(info);
+			if (screen.width > 500) {
+				container.appendChild(info);
+			}
 
 			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
 			camera.position.y = 700;
@@ -297,6 +296,9 @@
 
 
 		function onDocumentMouseDown(event) {
+			if (screen.width < 500) {
+				return
+			}
 			event.preventDefault();
 
 			var intersects = ray.intersectObjects(scene.children);
@@ -318,6 +320,9 @@
 		}
 
 		function onDocumentKeyDown(event) {
+			if (screen.width < 500) {
+				return
+			}
 			switch (event.keyCode) {
 				case 88: isXDown = true; break;  // x key
 				case 16: isShiftDown = true; break;  // shift key
@@ -325,6 +330,9 @@
 		}
 
 		function onDocumentKeyUp(event) {
+			if (screen.width < 500) {
+				return
+			}
 			switch (event.keyCode) {
 				case 88: isXDown = false; break;
 				case 16: isShiftDown = false; break;
@@ -334,8 +342,7 @@
 		//
 
 		function animate() {
-			requestAnimationFrame(animate);
-			
+			requestAnimationFrame(animate);	
 			render();
 		}
 
@@ -362,7 +369,7 @@
 		<div class="header">
 			<h1>University of Chicago - TechTeam Ideathon<br>
 				<div style="color:white; font-size: 5vh; opacity: 1;">April 10-11, 2021</div><br>
-				<div style="color:red; display: inline-block; font-size: 10vh; background-color: rgba(0,0,0,0.5);">Conceptualize the Future with Us</div>
+				<div style="color:red; display: inline-block; font-size: 8vh; background-color: rgba(0,0,0,0.5);">Conceptualize the Future with Us</div>
 			<h1> 		
 		</div> <!-- header -->
 
@@ -415,16 +422,17 @@
 
 			</div> <!-- leftdiv -->
 
-			<div class="tvcontainer" style="float: right; width: 50%; height: 600px; width: 500px; margin-right: 50;">
-				<img src="television.png" class="tvImage" width=100%; height=100%;>
+			<div class="tvcontainer">
 				<div class="slideshow">
-					<img class="slide" src="clicktoenter.png" style="width: 85%; height: 100%;">
-					<img class="slide" src="AlgoBias.png" style="width: 85%; height: 100%;">
-					<img class="slide" src="DigitalCommunities.png" style="width: 85%; height: 100%;">
-					<img class="slide" src="EnvironmentalSustainability.png" style="width: 85%; height: 100%;">
-					<img class="slide" src="Education.png" style="width: 85%; height: 100%;">
-					<img class="slide" src="PreservingDataPrivacy.png" style="width: 85%; height: 100%;">
+					<img class="slide" src="clicktoenter.png">
+					<img class="slide" src="AlgoBias.png">
+					<img class="slide" src="DigitalCommunities.png">
+					<img class="slide" src="EnvironmentalSustainability.png">
+					<img class="slide" src="Education.png">
+					<img class="slide" src="PreservingDataPrivacy.png">
 				</div>
+				<img src="television.png" class="tvImage">
+
 				<!--slideshow -->
 				<!--<img src="https://d3qi0qp55mx5f5.cloudfront.net/www/i/features/feature_slideshows/20130723_Architecture_City.jpg?mtime=1380630668" class="tvImage2" width = 475px; height = 365px;> -->
 			</div> <!-- tvcontainer -->
