@@ -186,7 +186,6 @@
 			info.style.zIndex = 100;
 			info.style.backgroundColor = 'rgba(0,0,0,0.2)';
 			info.style.textAlign = 'center';
-			info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>x</strong>: rotate grid';
 			if (screen.width > 500) {
 				container.appendChild(info);
 			}
@@ -259,14 +258,6 @@
 			//
 
 			window.addEventListener('resize', onWindowResize, false);
-
-			for (var i = 0; i <21; i++) {
-				x = Math.random() * (475 + 475) - 475;
-				y = 25;
-				z = Math.random() * (475 + 475) - 475;
-				var intersects = ray.intersectObjects(scene.children);
-				addVoxel(scene, intersects, x, y, z);
-			}
 
 		}
 
