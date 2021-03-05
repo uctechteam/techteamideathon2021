@@ -31,7 +31,7 @@
 		html {
 			overflow: hidden;
 		}
-		
+
 		body {
 			font-family: Monospace;
 			background-color: black;
@@ -85,6 +85,18 @@
 			top: 0;
 			position: fixed;
 			width: 100vw;
+		}
+
+		#homelink {
+			color: black;
+		}
+
+		#homelink h4 {
+			margin: 0;
+		}
+
+		#homelink:hover {
+			text-decoration: none;
 		}
 
 		@media screen and (min-width: 0px) and (max-width: 599px) {
@@ -324,6 +336,9 @@
 
 	<div class="page">
 		<nav class="navbar navbar-light">
+			<a href="http://www.ideathon.info/" id="homelink">
+				<h4 style="font-family: 'Bebas Neue'; vertical-align:middle;">University of Chicago - TechTeam Ideathon</h4>
+			</a>
 			<a class="navbar-brand" href="http://uchicagotechteam.com/">
 			<img src="logo.png" height="30" class="d-inline-block align-top" alt="">
 			</a>
@@ -332,10 +347,8 @@
     <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
   </div>  -->
 		<div class="header" style="text-align: center;">
-			<a href="about.html" style="color: white; text-decoration: none; ">
-				<h1 style="color: white; font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon
-			</a><br>
-			<div style="font-family: 'Bebas Neue'; color:white; font-size: 5vh; opacity: 1;">Prompts </h1>
+				<h1 style="color: white; font-family: 'Bebas Neue';">
+			<div style="font-family: 'Bebas Neue'; color:white; opacity: 1;">Prompts </h1>
 				<p style="font-size: 10px; color: white;"><strong>click</strong>: add box, <strong>shift +
 						click</strong>: remove box, <strong>x</strong>: rotate grid
 				<p>
