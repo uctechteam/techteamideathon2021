@@ -200,6 +200,13 @@
 			var size = 500, step = 50;
 			var geometry = new THREE.Geometry();
 
+			for (var i = - size; i <= size; i += step) {
+				geometry.vertices.push(new THREE.Vector3(- size, 0, i));
+				geometry.vertices.push(new THREE.Vector3(size, 0, i));
+
+				geometry.vertices.push(new THREE.Vector3(i, 0, - size));
+				geometry.vertices.push(new THREE.Vector3(i, 0, size));
+			}
 
 			var material = new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.4 });
 
@@ -378,11 +385,12 @@
 	 <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
 	</div>  -->
 
-		<div class="header" style = "text-align: center;">
-			<h1 style = "color: white; font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon<br>
-				<div style="font-family: 'Bebas Neue'; color:white; font-size: 5vh; opacity: 1;">April 10-11, 2021</div>
+		<div class="header" style = "text-align: center; color: white;">
+			<h1 style = "font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon<br>
+				<div style="font-family: 'Bebas Neue';font-size: 5vh; opacity: 1;">April 10-11, 2021</div>
 				<div style="font-family: 'Bebas Neue'; display: inline-block; font-size: 8vh; background-color: rgba(0,0,0,0.5);">Conceptualize the <a style = "color: rgba(0, 255, 128, 0.8);" href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">Future</a> with Us</div>
 			<h1>
+				<p style = "font-size: 10px;"><strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>x</strong>: rotate grid<p>
 		</div> <!-- header -->
 
 		<div class="content text-align-center row">
