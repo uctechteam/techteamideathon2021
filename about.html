@@ -14,40 +14,28 @@
 
 	<link href="/assets/mycustomstyles.css" rel="stylesheet">
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 
 
 
 	<title>Ideathon 2021</title>
 	<style>
-	@media screen and (min-width: 600px) { /*computer dimensions */
-		body {
-			font-family: Monospace;
-			background-color: black;
-			margin: 0px;
-			overflow: hidden;
-		}
-}
-
-@media screen and (min-width: 0px) and (max-width: 599px) { /*phone dimensions */
-	body {
-		font-family: Monospace;
-		background-color: black;
-		margin: 0px;
-		overflow: auto;
-	}
-
-}
 		canvas {
 			width: 100vw;
-	    height: 100vh;
-	    display: block;
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    z-index: -9999;
+			height: 100vh;
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: -9999;
 		}
 
 		.page {
@@ -58,7 +46,7 @@
 
 		.content {
 			position: relative;
-      z-index: 1;
+			z-index: 1;
 			color: white;
 		}
 
@@ -69,10 +57,9 @@
 		}
 
 		.tvcontainer {
-			display:inline-block;
-      margin: 0 auto;
-      position:relative;
-      opacity: 0.7;
+			display: inline-block;
+			margin: 0 auto;
+			position: relative;
 		}
 
 		.tvImage {
@@ -88,8 +75,11 @@
 			height: 35vw;
 			max-height: 800px;
 			filter: saturate(20%);
+			opacity: 0.7;
 		}
+
 		.tvImage:hover {
+			opacity: 1;
 			position: relative;
 			top: 0px;
 			left: 0px;
@@ -105,11 +95,11 @@
 		}
 
 		.slideshow {
-		  position: absolute;
-		  top: 0;
-		  left: 0;
-		  z-index: 2;
-		 }
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+		}
 
 		.slide {
 			position: relative;
@@ -118,18 +108,18 @@
 			z-index: -7;
 			width: 23vw;
 			max-width: 700px;
-     	height: 22vw;
+			height: 22vw;
 			max-height: 600px;
-			display:none;
+			display: none;
 		}
 
 		.leftdiv {
-    	overflow: auto;
-      height: 60vh;
-      padding: 3vh;
-      background-color: rgba(0, 0, 0, 0.2);
+			overflow: auto;
+			height: 60vh;
+			padding: 5vh;
+			background-color: rgba(0, 0, 0, 0.3);
 			margin-top: 1vh;
-  	}
+		}
 
 		#loading {
 			width: 100%;
@@ -151,6 +141,36 @@
 			z-index: 100;
 		}
 
+		.header {
+			padding: 2vw;
+		}
+
+		@media screen and (min-width: 600px) {
+
+			/*computer dimensions */
+			body {
+				font-family: Monospace;
+				background-color: black;
+				margin: 0px;
+			}
+		}
+
+		@media screen and (min-width: 0px) and (max-width: 599px) {
+
+			/*phone dimensions */
+			body {
+				font-family: Monospace;
+				background-color: black;
+				margin: 0px;
+				overflow: auto;
+			}
+
+			.slide {
+				left: 13.5vw;
+				top: 3vh;
+			}
+
+		}
 	</style>
 </head>
 
@@ -186,6 +206,7 @@
 			info.style.zIndex = 100;
 			info.style.backgroundColor = 'rgba(0,0,0,0.2)';
 			info.style.textAlign = 'center';
+
 			if (screen.width > 500) {
 				container.appendChild(info);
 			}
@@ -258,6 +279,13 @@
 			//
 
 			window.addEventListener('resize', onWindowResize, false);
+			for (var i = 0; i < 7; i++) {
+				x = Math.random() * (475 + 475) - 475;
+				y = 25;
+				z = Math.random() * (475 + 475) - 475;
+				var intersects = ray.intersectObjects(scene.children);
+				addVoxel(scene, intersects, x, y, z);
+			}
 
 		}
 
@@ -310,9 +338,6 @@
 
 
 		function onDocumentMouseDown(event) {
-			if (screen.width < 500) {
-				return
-			}
 			event.preventDefault();
 
 			var intersects = ray.intersectObjects(scene.children);
@@ -326,16 +351,13 @@
 
 				} else {
 					var position = new THREE.Vector3().add(intersects[0].point, intersects[0].object.matrixRotationWorld.multiplyVector3(intersects[0].face.normal.clone()));
-					addVoxel(scene, intersects, position.x, position.y+window.scrollY, position.z);
+					addVoxel(scene, intersects, position.x, position.y + window.scrollY, position.z);
 				}
 
 			}
 		}
 
 		function onDocumentKeyDown(event) {
-			if (screen.width < 500) {
-				return
-			}
 			switch (event.keyCode) {
 				case 88: isXDown = true; break;  // x key
 				case 16: isShiftDown = true; break;  // shift key
@@ -376,46 +398,52 @@
 	 <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
 	</div>  -->
 
-		<div class="header" style = "text-align: center; color: white;">
-			<h1 style = "font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon<br>
+		<div class="header" style="text-align: center; color: white;">
+			<h1 style="font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon<br>
 				<div style="font-family: 'Bebas Neue';font-size: 5vh; opacity: 1;">April 10-11, 2021</div>
-				<div style="font-family: 'Bebas Neue'; display: inline-block; font-size: 8vh; background-color: rgba(0,0,0,0.5);">Conceptualize the <a style = "color: rgba(0, 255, 128, 0.8);" href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">Future</a> with Us</div>
-			<h1>
-				<p style = "font-size: 10px;"><strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>x</strong>: rotate grid<p>
+				<div
+					style="font-family: 'Bebas Neue'; display: inline-block; font-size: 6vw; background-color: rgba(0,0,0,0.5);">
+					Conceptualize the <a target="_blank" style="color: rgba(0, 255, 128, 0.8);"
+						href="https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">Future</a>
+					with Us</div>
+				<h1>
+					<p style="font-size: 9px;"><strong>click</strong>: add box, <strong>shift + click</strong>: remove
+						box, <strong>x</strong>: rotate grid
+					<p>
 		</div> <!-- header -->
 
 		<div class="content row">
 			<div class="leftdiv my-1 col-md-8 col-sm-12">
 				<p>
-				<h2 style="font-family: 'Bebas Neue';"><b><em>what is it?</em></b></h2>
+				<h2 style="font-family: 'Bebas Neue';color: springgreen;"><b><em>what is it?</em></b></h2>
 				<p>Ideathon brings together interdisciplinary minds to address the most
 					pressing issues at the intersection of technology and society. solutions
 					can come in the form of a startup idea, a social enterprise, software, even
-					a government policy.  teams are encouraged to think outside the box.
-					conceptualize new paradigms. Go from zero to one.  </p>
+					a government policy. teams are encouraged to think outside the box.
+					conceptualize new paradigms. Go from zero to one. </p>
 
 				<p>teams will submit a slidedeck and a 3-minute elevator pitch describing
 					the identified problem, along with the team’s corresponding solution.
 					mentorship opportunities with young professionals in consumer tech, civic
-					tech, and data science will be available during ideathon.  </p>
+					tech, and data science will be available during ideathon. </p>
 
-				<h2 style="font-family: 'Bebas Neue';"><b><em>who is it for?</em></b></h2>
+				<h2 style="font-family: 'Bebas Neue';color: springgreen;"><b><em>who is it for?</em></b></h2>
 				<p>Ideation is an open space for discussion and thoughtful collaboration
 					across all majors and schools at the university of chicago. All skillsets
 					are welcome. technical and non-technical. Quantitative and qualitative. </p>
 
 				<p>We ask that you form teams of 2-4 students. you may register as a
 					team or as an individual. TechTeam will sort all of the individual
-					registrants into groups closer to the start date.  </p>
+					registrants into groups closer to the start date. </p>
 
-				<h2 style="font-family: 'Bebas Neue';"><b><em>where is it?</em></b></h2>
+				<h2 style="font-family: 'Bebas Neue';color: springgreen;"><b><em>where is it?</em></b></h2>
 				<p>Virtual. Speaker events, mentor sessions, and ceremonies will be done
 					through zoom. Participants will be asked to join a Slack channel to
 					facilitate real-time communication and community engagement during the
 					event.</p>
 
-				<h2 style="font-family: 'Bebas Neue';"><b><em>see you there</em></b></h2>
-				<p>$2,500 worth of prizes for the following winning categories: best
+				<h2 style="font-family: 'Bebas Neue';color: springgreen;"><b><em>see you there</em></b></h2>
+				<p>$2,500 worth of food, swag, and prizes for the following winning categories: best
 					overall, best design, best presentation, most creative, most uchicago,
 					fan favorite. Grubhub vouchers will also be given to all attendees.</p>
 
@@ -429,17 +457,18 @@
 
 			</div> <!-- leftdiv -->
 
-			<a href="prompts.html" title="Prompts">
+			<a href="prompts.html" title="Prompts" target="_blank">
 				<div class="tvcontainer col-md-4 offset-sm-4 col-sm-8 ">
 					<div class="slideshow">
 						<img class="slide" src="clicktoenter.png">
-						<img class="slide" src="AlgoBias.png" >
-						<img class="slide" src="DigitalCommunities.png" >
-						<img class="slide" src="EnvironmentalSustainability.png" >
-						<img class="slide" src="Education.png" >
-						<img class="slide" src="PreservingDataPrivacy.png" >
+						<img class="slide" src="AlgoBias.png">
+						<img class="slide" src="DigitalCommunities.png">
+						<img class="slide" src="EnvironmentalSustainability.png">
+						<img class="slide" src="Education.png">
+						<img class="slide" src="PreservingDataPrivacy.png">
 					</div>
-					<img src="https://global-uploads.webflow.com/5f66b93a2a8208efcab8fdd7/5f8d300ee5ec2d4595d45d40_tc-tv%20(1).png" class="tvImage">
+					<img src="https://global-uploads.webflow.com/5f66b93a2a8208efcab8fdd7/5f8d300ee5ec2d4595d45d40_tc-tv%20(1).png"
+						class="tvImage">
 
 					<!--slideshow -->
 				</div> <!-- tvcontainer -->
@@ -465,9 +494,15 @@
 		}
 	</script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 
 
 
