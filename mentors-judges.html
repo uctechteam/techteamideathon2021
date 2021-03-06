@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Connect Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
+
+    <link href="/assets/mycustomstyles.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>Ideathon 2021</title>
+    <style>
+        html {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Monospace;
+            background-color: black;
+            margin: 0px;
+        }
+
+        canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -9999;
+        }
+
+        .page {
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .content:after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+
+        .header {
+            margin-top: 9vh;
+            padding: 2vw;
+        }
+
+        .navbar {
+            background-color: rgba(0, 255, 128, 0.8);
+            top: 0;
+            position: fixed;
+            width: 100vw;
+        }
+
+        .homelink {
+            color: black;
+        }
+
+        .homelink h4 {
+            margin: 0;
+        }
+
+        .homelink h5 {
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        .homelink:hover {
+            text-decoration: none;
+            color: black
+        }
+
+        .register {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 50%, yellow 50%);
+            background-position: -0% 0;
+            background-size: 200% auto;
+            text-decoration: none;
+            transition: background-position 0.3s ease-out;
+            padding: 5px;
+        }
+
+        .register:hover {
+            background-position: -99.99% 0;
+            color: black;
+        }
+
+        .logo {
+            -webkit-transition: -webkit-transform .8s ease-in-out;
+            transition: transform .8s ease-in-out;
+        }
+
+        .logo:hover {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
+        .bio {
+            font-family: Monospace;
+            margin-bottom: 15px;
+            padding-right: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .promptdiv {
+            overflow: auto;
+            margin-left: 5vw;
+            height: 70vh;
+            background-color: rgba(0, 0, 0, 0.2);
+            width: 90%;
+        }
+
+        @media screen and (min-width: 0px) and (max-width: 599px) {
+            .promptdiv {
+                overflow: auto;
+                margin-left: 5vw;
+                height: 60vh;
+                padding: 2vh;
+                background-color: rgba(0, 0, 0, 0.2);
+                margin: auto;
+                width: 90%;
+                padding: 10px;
+            }
+
+            p {
+                font-size: 4vw;
+            }
+
+            .navbar-brand {
+                display: none;
+            }
+
+            .header {
+                margin-top: 16vh;
+            }
+        }
+
+        /* .threejs {
+        z-index: 1;
+      } */
+    </style>
+</head>
+
+<body>
+
+    <script src="build/three.min.js"></script>
+    <script src="js/libs/stats.min.js"></script>
+
+    <script>
+
+        var container, stats;
+        var camera, scene, renderer;
+        var projector, plane;
+        var mouse2D, mouse3D, ray, theta = 45,
+            isXDown = false, isShiftDown = false,
+            target = new THREE.Vector3(0, 0, 0);
+        var ROLLOVERED;
+
+        init();
+        animate();
+
+
+        function init() {
+            container = document.createElement('div');
+            container.className += "threejs";
+            document.body.appendChild(container);
+
+            var info = document.createElement('div');
+            info.style.position = 'absolute';
+            info.style.top = '70vh';
+            info.style.width = '100%';
+            info.style.color = 'rgb(0, 255, 128)';
+            info.style.zIndex = 100;
+            info.style.backgroundColor = 'rgba(0,0,0,0.2)';
+            info.style.textAlign = 'center';
+
+            if (screen.width > 500) {
+                container.appendChild(info);
+            }
+
+            camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.y = 700;
+            scene = new THREE.Scene();
+
+            // Grid
+
+            var size = 500, step = 50;
+            var geometry = new THREE.Geometry();
+
+            for (var i = - size; i <= size; i += step) {
+                geometry.vertices.push(new THREE.Vector3(- size, 0, i));
+                geometry.vertices.push(new THREE.Vector3(size, 0, i));
+
+                geometry.vertices.push(new THREE.Vector3(i, 0, - size));
+                geometry.vertices.push(new THREE.Vector3(i, 0, size));
+            }
+
+            var material = new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.4 });
+
+            var line = new THREE.Line(geometry, material);
+            line.type = THREE.LinePieces;
+            scene.add(line);
+
+            //
+
+            projector = new THREE.Projector();
+
+            plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), new THREE.MeshBasicMaterial());
+            plane.rotation.x = - Math.PI / 2;
+            plane.visible = false;
+            scene.add(plane);
+
+            mouse2D = new THREE.Vector3(0, 10000, 0.5);
+            ray = new THREE.Ray(camera.position, null);
+
+            // Lights
+
+            var ambientLight = new THREE.AmbientLight(0x606060);
+            scene.add(ambientLight);
+
+            var directionalLight = new THREE.DirectionalLight(0xffffff);
+            directionalLight.position.x = Math.random() - 0.5;
+            directionalLight.position.y = Math.random() - 0.5;
+            directionalLight.position.z = Math.random() - 0.5;
+            directionalLight.position.normalize();
+            scene.add(directionalLight);
+
+            var directionalLight = new THREE.DirectionalLight(0x808080);
+            directionalLight.position.x = Math.random() - 0.5;
+            directionalLight.position.y = Math.random() - 0.5;
+            directionalLight.position.z = Math.random() - 0.5;
+            directionalLight.position.normalize();
+            scene.add(directionalLight);
+
+            renderer = new THREE.CanvasRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0); // the default
+
+            container.appendChild(renderer.domElement);
+
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            document.addEventListener('mousedown', onDocumentMouseDown, false);
+            document.addEventListener('keydown', onDocumentKeyDown, false);
+            document.addEventListener('keyup', onDocumentKeyUp, false);
+
+            //
+
+            window.addEventListener('resize', onWindowResize, false);
+            for (var i = 0; i < 7; i++) {
+                x = Math.random() * (475 + 475) - 475;
+                y = 25;
+                z = Math.random() * (475 + 475) - 475;
+                var intersects = ray.intersectObjects(scene.children);
+                addVoxel(scene, intersects, x, y, z);
+            }
+
+        }
+
+        function addVoxel(scene, intersects, x, y, z) {
+            var geometry = new THREE.CubeGeometry(50, 50, 50);
+            for (var i = 0; i < geometry.faces.length; i++) {
+                geometry.faces[i].color.setHex(0x00ff80);
+            }
+
+            var material = new THREE.MeshLambertMaterial({ vertexColors: THREE.FaceColors });
+            var voxel = new THREE.Mesh(geometry, material);
+            voxel.position.x = Math.floor(x / 50) * 50 + 25;
+            voxel.position.y = Math.floor(y / 50) * 50 + 25;
+            voxel.position.z = Math.floor(z / 50) * 50 + 25;
+            voxel.matrixAutoUpdate = false;
+            voxel.updateMatrix();
+            scene.add(voxel);
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
+        function onDocumentMouseMove(event) {
+
+            event.preventDefault();
+
+            mouse2D.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse2D.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            mouse3D = projector.unprojectVector(mouse2D.clone(), camera);
+            ray.direction = mouse3D.subSelf(camera.position).normalize();
+
+            var intersects = ray.intersectObjects(scene.children);
+
+            if (intersects.length > 0) {
+
+                if (ROLLOVERED) ROLLOVERED.color.setHex(0x00ff80);
+
+                ROLLOVERED = intersects[0].face;
+                ROLLOVERED.color.setHex(0xff8000)
+
+            }
+        }
+
+
+        function onDocumentMouseDown(event) {
+            event.preventDefault();
+
+            var intersects = ray.intersectObjects(scene.children);
+
+            if (intersects.length > 0) {
+
+                if (isShiftDown) {
+                    if (intersects[0].object != plane) {
+                        scene.remove(intersects[0].object);
+                    }
+
+                } else {
+                    var position = new THREE.Vector3().add(intersects[0].point, intersects[0].object.matrixRotationWorld.multiplyVector3(intersects[0].face.normal.clone()));
+                    addVoxel(scene, intersects, position.x, position.y + window.scrollY, position.z);
+                }
+
+            }
+        }
+
+        function onDocumentKeyDown(event) {
+            switch (event.keyCode) {
+                case 88: isXDown = true; break;  // x key
+                case 16: isShiftDown = true; break;  // shift key
+            }
+        }
+
+        function onDocumentKeyUp(event) {
+            if (screen.width < 500) {
+                return
+            }
+            switch (event.keyCode) {
+                case 88: isXDown = false; break;
+                case 16: isShiftDown = false; break;
+            }
+        }
+
+        //
+
+        function animate() {
+            requestAnimationFrame(animate);
+            render();
+        }
+
+        function render() {
+            if (isXDown) {
+                theta += mouse2D.x * 3;
+            }
+            camera.position.x = 1400 * Math.sin(theta * Math.PI / 360);
+            camera.position.z = 1400 * Math.cos(theta * Math.PI / 360);
+            camera.lookAt(target);
+            renderer.render(scene, camera);
+        }
+
+    </script>
+
+    <div class="page">
+        <nav class="navbar navbar-light">
+            <a href="http://www.ideathon.info/" class="homelink">
+                <h4 style="font-family: 'Bebas Neue'; vertical-align:middle;">University of Chicago - TechTeam Ideathon
+                </h4>
+            </a>
+            <a href="https://forms.gle/2x5c3VfTQ7r9PDHQ6" class="homelink register">
+                <h5 style="font-family: 'Bebas Neue'; vertical-align:middle; padding:5px; background-color:yellow;">
+                    Register</h5>
+            </a>
+            <a href="schedule.html" class="homelink register">
+                <h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Schedule</h5>
+            </a>
+            <a href="mentors-judges.html" class="homelink register">
+                <h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Judges & Mentors</h5>
+            </a>
+            <a class="navbar-brand" href="http://uchicagotechteam.com/">
+                <img class="logo" src="logo.png" height="30" class="d-inline-block align-top" alt="">
+            </a>
+        </nav>
+        <div class="header" style="text-align: center;">
+            <h1 style="color: white; font-family: 'Bebas Neue';">
+                <div class="register" style="display:inline-block; font-family: 'Bebas Neue';"> Judges & Mentors </div>
+            </h1>
+            <p style="font-size: 10px; color: white;"><strong>click</strong>: add box, <strong>shift +
+                    click</strong>: remove box, <strong>x</strong>: rotate grid
+            <p>
+        </div> <!-- header -->
+
+        <div class="promptdiv content text-align-center row">
+            <div class="offset-1" style=" color: white; font-family: 'Bebas Neue';">
+                <h1 style="font-family: 'Bebas Neue'; color: springgreen;"> Judges </h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Professor Daniel Moerner</h4>
+                        <div style="font-family: Monospace;" class="bio">
+                            Is an Assistant Professor in Philosophy at the University of Chicago. His classes include
+                            <i>Ethics in the Digital Age</i>,
+                            <i>Descartes’s Meditations in its Medieval Context</i>,
+                            <i>Spinoza’s Ethics</i>, and <i>Medieval and Early Modern Philosophy</i>.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Erin Simpson</h4>
+                        <div class="bio">
+                            Is an Associate Director of Technology Policy at American Progress, and one of the
+                            cofounders of UChicago TechTeam in 2013!
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Olivia Myszskowski</h4>
+                        <div style="font-family: Monospace;" class="bio">
+                            Is an Associate Vice President of Client Services at Morning Consult, and also one of the
+                            cofounders of UChicago TechTeam!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Jakub Tucholski</h4>
+                        <div style="font-family: Monospace;" class="bio">
+                            Is a Software Engineer at Uber, and also one of the cofounders of UChicago TechTeam/Director
+                            of Technology!
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h1 style="font-family: 'Bebas Neue'; color: springgreen;"> Mentors </h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Alex Niemczewski</h4>
+                        <div class="bio">
+                            Is the CEO at BallotReady, an online voter guide to local elections. BallotReady won first place in Chicago Booth's Social New Venture Challenge, we've been funded by the National Science Foundation, the Knight Foundation, and UChicago's Institute of Politics. 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Nico Marchio</h4>
+                        <div class="bio">
+                            Is a Lead Data Scientist at the Mansueto Institute for Urban Innovation. Previously, he was a Data Science Engineer at <i>Bernie Sanders For President</i> and a Senior Data Scientist at Civis Analytics.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Rachel Dias</h4>
+                        <div class="bio">
+                            Is a Project Manager at Facebook, and graduated from the University of Chicago last year in 2020 with a Bachelor's in Political Science.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- content -->
+
+    </div>
+    <!--page -->
+</body>
+
+</html>

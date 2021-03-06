@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-
+	<link rel="icon" type="image/png" href="favicon.ico">
 	<!-- Connect Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -146,7 +146,7 @@
 		}
 
 		.header {
-			margin-top: 8vh;
+			margin-top: 9vh;
 			padding: 2vw;
 		}
 
@@ -157,16 +157,46 @@
 			width: 100vw;
 		}
 
-		#homelink {
+		.homelink {
 			color: black;
 		}
 
-		#homelink h4 {
+		.homelink h4 {
 			margin: 0;
 		}
 
-		#homelink:hover {
+		.homelink h5 {
+			vertical-align: middle;
+			margin: 0;
+		}
+
+		.homelink:hover {
 			text-decoration: none;
+			color: black
+		}
+
+		.register {
+			background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 50%, yellow 50%);
+			background-position: -0% 0;
+			background-size: 200% auto;
+			text-decoration: none;
+			transition: background-position 0.3s ease-out;
+			padding: 5px;
+		}
+
+		.register:hover {
+			background-position: -99.99% 0;
+			color: black;
+		}
+
+		.logo {
+			-webkit-transition: -webkit-transform .8s ease-in-out;
+			transition: transform .8s ease-in-out;
+		}
+
+		.logo:hover {
+			-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
 		}
 
 		@media screen and (min-width: 600px) {
@@ -197,9 +227,17 @@
 				overflow: auto;
 			}
 
+			.page {
+				margin-top: 15vh;
+			}
+
 			.slide {
 				left: 13.5vw;
 				top: 3vh;
+			}
+
+			.navbar-brand {
+				display: none;
 			}
 
 		}
@@ -427,24 +465,33 @@
 
 	<div class="page">
 		<nav class="navbar navbar-light">
-			<a href="http://www.ideathon.info/" id="homelink">
-				<h4 style="font-family: 'Bebas Neue'; vertical-align:middle;">University of Chicago - TechTeam Ideathon</h4>
+			<a href="http://www.ideathon.info/" class="homelink">
+				<h4 style="font-family: 'Bebas Neue'; vertical-align:middle;">University of Chicago - TechTeam Ideathon
+				</h4>
+			</a>
+			<a href="https://forms.gle/2x5c3VfTQ7r9PDHQ6" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; padding:5px; background-color:yellow; vertical-align:middle;">Register Here</h5>
+			</a>
+			<a href="schedule.html" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Schedule</h5>
+			</a>
+			<a href="mentors-judges.html" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Judges & Mentors</h5>
 			</a>
 			<a class="navbar-brand" href="http://uchicagotechteam.com/">
-			<img src="logo.png" height="30" class="d-inline-block align-top" alt="">
+				<img class="logo" src="logo.png" height="30" class="d-inline-block align-top" alt="">
 			</a>
 		</nav>
-		<!-- <div id="loading">
-	 <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
-	</div>  -->
+
 
 		<div class="header" style="text-align: center; color: white;">
 			<h1 style="font-family: 'Bebas Neue';">
-				<div style="font-family: 'Bebas Neue'; z-index:-10; display: inline-block; background-color: rgba(0,0,0,0.5);">
-					Conceptualize the <a target="_blank" style="color: rgba(0, 255, 128, 0.8);"
-						href="https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">Future</a>
+				<div class="register"
+					style="font-family: 'Bebas Neue'; z-index:-10; display: inline-block; background-color: rgba(0,0,0,0.5);">
+					Conceptualize the <a target="_blank" style="color: green;"
+						href="https://forms.gle/2x5c3VfTQ7r9PDHQ6">Future</a>
 					with Us</div>
-					<div style="font-family: 'Bebas Neue';font-size: 5vh; opacity: 1;">April 10-11, 2021</div>
+				<div style="font-family: 'Bebas Neue';font-size: 5vh; opacity: 1;">April 10-11, 2021</div>
 
 				<h1>
 					<p style="font-size: 9px;"><strong>click</strong>: add box, <strong>shift + click</strong>: remove
@@ -454,7 +501,6 @@
 
 		<div class="content row">
 			<div class="leftdiv my-1 col-md-8 col-sm-12">
-				<p>
 				<h2 style="font-family: 'Bebas Neue';color: springgreen;"><b><em>what is it?</em></b></h2>
 				<p>Ideathon brings together interdisciplinary minds to address the most
 					pressing issues at the intersection of technology and society. solutions
