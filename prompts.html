@@ -1,365 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		
- 
-    <!-- Connect Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<link rel="icon" type="image/png" href="favicon.ico">
+	<!-- Connect Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
 
 
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
 
-    <link href="/assets/mycustomstyles.css" rel="stylesheet">
+	<link href="/assets/mycustomstyles.css" rel="stylesheet">
 
-    <title>Ideathon 2021</title>
-    <style>
-			body {
-				font-family: Monospace;
-				background-color: transparent;
-				margin: 0px;
-				overflow: hidden;
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<title>Ideathon 2021</title>
+	<style>
+		html {
+			overflow: hidden;
+		}
+
+		body {
+			font-family: Monospace;
+			background-color: black;
+			margin: 0px;
+		}
+
+		canvas {
+			width: 100vw;
+			height: 100vh;
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: -9999;
+		}
+
+		.page {
+			z-index: 5;
+			width: 100%;
+			height: 100%;
+		}
+
+		.content {
+			position: relative;
+			z-index: 1;
+		}
+
+		.content:after {
+			content: '';
+			clear: both;
+			display: block;
+		}
+
+		.promptdiv {
+			overflow: auto;
+			height: 60vh;
+			padding: 3vh;
+			background-color: rgba(0, 0, 0, 0.2);
+			margin: auto;
+			width: 60%;
+			padding: 10px;
+		}
+
+		.header {
+			margin-top: 9vh;
+			padding: 2vw;
+		}
+
+		.navbar {
+			background-color: rgba(0, 255, 128, 0.8);
+			top: 0;
+			position: fixed;
+			width: 100vw;
+		}
+
+		.homelink {
+			color: black;
+		}
+
+		.homelink h4 {
+			margin: 0;
+		}
+
+		.homelink h5 {
+			vertical-align: middle;
+			margin: 0;
+		}
+
+		.homelink:hover {
+			text-decoration: none;
+			color: black
+		}
+
+		.register {
+			background-image: linear-gradient(to right, rgba(255,255,255,0) 50%, yellow 50%);
+			background-position: -0% 0;
+			background-size: 200% auto;
+			text-decoration: none;
+			transition: background-position 0.3s ease-out;
+			padding: 5px;
+		}
+
+		.register:hover {
+			background-position: -99.99% 0;
+			color: black;
+		}
+
+		.logo {
+			-webkit-transition: -webkit-transform .8s ease-in-out;
+			transition: transform .8s ease-in-out;
+		}
+
+		.logo:hover {
+			-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+
+		@media screen and (min-width: 0px) and (max-width: 599px) {
+			.promptdiv {
+				margin-left: 5vw;
 			}
 
-      canvas {
-        width: 100vw;
-        height: 100vh;
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -9999;
-      }
+			p {
+				font-size: 4vw;
+			}
 
-      .page {
-        z-index: 5;
-        width: 100%;
-        height: 100%;
-      }
+			.navbar-brand {
+				display: none;
+			}
+		}
 
-      .content {
-        position: relative;
-        z-index: 1;
-      }
-
-      .content:after{
-        content: '';
-        clear: both;
-        display: block;
-      }
-
-
-      .promptdiv {
-        overflow: auto;
-        height: 60vh;
-        padding: 3vh;
-        background-color: rgba(0, 0, 0, 0.2);    
-	margin: auto;
-	width: 60%;
-	padding: 10px;
-      }
-
-      /* .threejs {
+		/* .threejs {
         z-index: 1;
       } */
+	</style>
+</head>
 
-		</style>
-	</head>
-	<body>
+<body>
 
-		<script src="build/three.min.js"></script>
-		<script src="js/libs/stats.min.js"></script>
+	<script src="build/three.min.js"></script>
+	<script src="js/libs/stats.min.js"></script>
 
-		<script>
+	<script>
 
-			var container, stats;
-			var camera, scene, renderer;
-			var projector, plane;
-			var mouse2D, mouse3D, ray, theta = 45,
-			isShiftDown = false, isCtrlDown = false,
-			target = new THREE.Vector3( 0, 200, 0 );
-			var ROLLOVERED;
+		var container, stats;
+		var camera, scene, renderer;
+		var projector, plane;
+		var mouse2D, mouse3D, ray, theta = 45,
+			isXDown = false, isShiftDown = false,
+			target = new THREE.Vector3(0, 0, 0);
+		var ROLLOVERED;
 
-			init();
-			animate();
+		init();
+		animate();
 
-			function init() {
 
-				container = document.createElement( 'div' );
-        		container.className += "threejs";
-				document.body.appendChild( container );
+		function init() {
+			container = document.createElement('div');
+			container.className += "threejs";
+			document.body.appendChild(container);
 
-				var info = document.createElement( 'div' );
-				info.style.position = 'absolute';
-				info.style.top = '13vh';
-				info.style.width = '100%';
-				info.style.textAlign = 'center';
-				info.innerHTML = '<strong>click</strong>: add box, <strong>shift + click</strong>: remove box, <strong>spacebar</strong>: rotate';
-				container.appendChild( info );
+			var info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '70vh';
+			info.style.width = '100%';
+			info.style.color = 'rgb(0, 255, 128)';
+			info.style.zIndex = 100;
+			info.style.backgroundColor = 'rgba(0,0,0,0.2)';
+			info.style.textAlign = 'center';
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.y = 700;
-
-				scene = new THREE.Scene();
-
-				// Grid
-
-				var size = 500, step = 50;
-
-				var geometry = new THREE.Geometry();
-
-				for ( var i = - size; i <= size; i += step ) {
-
-					geometry.vertices.push( new THREE.Vector3( - size, 0, i ) );
-					geometry.vertices.push( new THREE.Vector3(   size, 0, i ) );
-
-					geometry.vertices.push( new THREE.Vector3( i, 0, - size ) );
-					geometry.vertices.push( new THREE.Vector3( i, 0,   size ) );
-
-				}
-
-				var material = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } );
-
-				var line = new THREE.Line( geometry, material );
-				line.type = THREE.LinePieces;
-				scene.add( line );
-
-				//
-
-				projector = new THREE.Projector();
-
-				plane = new THREE.Mesh( new THREE.PlaneGeometry( 1000, 1000 ), new THREE.MeshBasicMaterial() );
-				plane.rotation.x = - Math.PI / 2;
-				plane.visible = false;
-				scene.add( plane );
-
-				mouse2D = new THREE.Vector3( 0, 10000, 0.5 );
-				ray = new THREE.Ray( camera.position, null );
-
-				// Lights
-
-				var ambientLight = new THREE.AmbientLight( 0x606060 );
-				scene.add( ambientLight );
-
-				var directionalLight = new THREE.DirectionalLight( 0xffffff );
-				directionalLight.position.x = Math.random() - 0.5;
-				directionalLight.position.y = Math.random() - 0.5;
-				directionalLight.position.z = Math.random() - 0.5;
-				directionalLight.position.normalize();
-				scene.add( directionalLight );
-
-				var directionalLight = new THREE.DirectionalLight( 0x808080 );
-				directionalLight.position.x = Math.random() - 0.5;
-				directionalLight.position.y = Math.random() - 0.5;
-				directionalLight.position.z = Math.random() - 0.5;
-				directionalLight.position.normalize();
-				scene.add( directionalLight );
-
-				renderer = new THREE.CanvasRenderer({ alpha: true });
-				renderer.setSize( window.innerWidth, window.innerHeight );
-        		renderer.setClearColor( 0x000000, 0 ); // the default
-
-				container.appendChild(renderer.domElement);
-
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				document.addEventListener( 'keydown', onDocumentKeyDown, false );
-				document.addEventListener( 'keyup', onDocumentKeyUp, false );
-
-				//
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
+			if (screen.width > 500) {
+				container.appendChild(info);
 			}
 
-			function onWindowResize() {
+			camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+			camera.position.y = 700;
+			scene = new THREE.Scene();
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+			// Grid
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+			var size = 500, step = 50;
+			var geometry = new THREE.Geometry();
 
+			for (var i = - size; i <= size; i += step) {
+				geometry.vertices.push(new THREE.Vector3(- size, 0, i));
+				geometry.vertices.push(new THREE.Vector3(size, 0, i));
+
+				geometry.vertices.push(new THREE.Vector3(i, 0, - size));
+				geometry.vertices.push(new THREE.Vector3(i, 0, size));
 			}
 
-			function onDocumentMouseMove( event ) {
+			var material = new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.4 });
 
-				event.preventDefault();
-
-				mouse2D.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-				mouse2D.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-				mouse3D = projector.unprojectVector( mouse2D.clone(), camera );
-				ray.direction = mouse3D.subSelf( camera.position ).normalize();
-
-				var intersects = ray.intersectObjects( scene.children );
-
-				if ( intersects.length > 0 ) {
-
-					if ( ROLLOVERED ) ROLLOVERED.color.setHex( 0x00ff80 );
-
-					ROLLOVERED = intersects[ 0 ].face;
-					ROLLOVERED.color.setHex( 0xff8000 )
-
-				}
-
-			}
-
-			function onDocumentMouseDown( event ) {
-
-				event.preventDefault();
-
-				var intersects = ray.intersectObjects( scene.children );
-
-				if ( intersects.length > 0 ) {
-
-					if ( isCtrlDown ) {
-
-						if ( intersects[ 0 ].object != plane ) {
-
-							scene.remove( intersects[ 0 ].object );
-
-						}
-
-					} else {
-
-						var position = new THREE.Vector3().add( intersects[ 0 ].point, intersects[ 0 ].object.matrixRotationWorld.multiplyVector3( intersects[ 0 ].face.normal.clone() ) );
-
-						var geometry = new THREE.CubeGeometry( 50, 50, 50 );
-
-						for ( var i = 0; i < geometry.faces.length; i ++ ) {
-
-							geometry.faces[ i ].color.setHex( 0x00ff80 );
-
-						}
-
-						var material = new THREE.MeshLambertMaterial( { vertexColors: THREE.FaceColors } );
-
-						var voxel = new THREE.Mesh( geometry, material );
-						voxel.position.x = Math.floor( position.x / 50 ) * 50 + 25;
-						voxel.position.y = Math.floor( position.y / 50 ) * 50 + 25;
-						voxel.position.z = Math.floor( position.z / 50 ) * 50 + 25;
-						voxel.matrixAutoUpdate = false;
-						voxel.updateMatrix();
-						scene.add( voxel );
-
-					}
-
-				}
-			}
-
-			function onDocumentKeyDown( event ) {
-
-				switch( event.keyCode ) {
-
-					case 32: isShiftDown = true; break;
-					case 16: isCtrlDown = true; break;
-
-				}
-
-			}
-
-			function onDocumentKeyUp( event ) {
-
-				switch( event.keyCode ) {
-
-					case 32: isShiftDown = false; break;
-					case 16: isCtrlDown = false; break;
-
-				}
-			}
+			var line = new THREE.Line(geometry, material);
+			line.type = THREE.LinePieces;
+			scene.add(line);
 
 			//
 
-			function animate() {
+			projector = new THREE.Projector();
 
-				requestAnimationFrame( animate );
+			plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), new THREE.MeshBasicMaterial());
+			plane.rotation.x = - Math.PI / 2;
+			plane.visible = false;
+			scene.add(plane);
 
-				render();
-				stats.update();
+			mouse2D = new THREE.Vector3(0, 10000, 0.5);
+			ray = new THREE.Ray(camera.position, null);
 
+			// Lights
+
+			var ambientLight = new THREE.AmbientLight(0x606060);
+			scene.add(ambientLight);
+
+			var directionalLight = new THREE.DirectionalLight(0xffffff);
+			directionalLight.position.x = Math.random() - 0.5;
+			directionalLight.position.y = Math.random() - 0.5;
+			directionalLight.position.z = Math.random() - 0.5;
+			directionalLight.position.normalize();
+			scene.add(directionalLight);
+
+			var directionalLight = new THREE.DirectionalLight(0x808080);
+			directionalLight.position.x = Math.random() - 0.5;
+			directionalLight.position.y = Math.random() - 0.5;
+			directionalLight.position.z = Math.random() - 0.5;
+			directionalLight.position.normalize();
+			scene.add(directionalLight);
+
+			renderer = new THREE.CanvasRenderer({ alpha: true });
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setClearColor(0x000000, 0); // the default
+
+			container.appendChild(renderer.domElement);
+
+			document.addEventListener('mousemove', onDocumentMouseMove, false);
+			document.addEventListener('mousedown', onDocumentMouseDown, false);
+			document.addEventListener('keydown', onDocumentKeyDown, false);
+			document.addEventListener('keyup', onDocumentKeyUp, false);
+
+			//
+
+			window.addEventListener('resize', onWindowResize, false);
+			for (var i = 0; i < 7; i++) {
+				x = Math.random() * (475 + 475) - 475;
+				y = 25;
+				z = Math.random() * (475 + 475) - 475;
+				var intersects = ray.intersectObjects(scene.children);
+				addVoxel(scene, intersects, x, y, z);
 			}
 
-			function render() {
+		}
 
-				if ( isShiftDown ) {
+		function addVoxel(scene, intersects, x, y, z) {
+			var geometry = new THREE.CubeGeometry(50, 50, 50);
+			for (var i = 0; i < geometry.faces.length; i++) {
+				geometry.faces[i].color.setHex(0x00ff80);
+			}
 
-					theta += mouse2D.x * 3;
+			var material = new THREE.MeshLambertMaterial({ vertexColors: THREE.FaceColors });
+			var voxel = new THREE.Mesh(geometry, material);
+			voxel.position.x = Math.floor(x / 50) * 50 + 25;
+			voxel.position.y = Math.floor(y / 50) * 50 + 25;
+			voxel.position.z = Math.floor(z / 50) * 50 + 25;
+			voxel.matrixAutoUpdate = false;
+			voxel.updateMatrix();
+			scene.add(voxel);
+		}
 
+		function onWindowResize() {
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+		}
+
+		function onDocumentMouseMove(event) {
+
+			event.preventDefault();
+
+			mouse2D.x = (event.clientX / window.innerWidth) * 2 - 1;
+			mouse2D.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+			mouse3D = projector.unprojectVector(mouse2D.clone(), camera);
+			ray.direction = mouse3D.subSelf(camera.position).normalize();
+
+			var intersects = ray.intersectObjects(scene.children);
+
+			if (intersects.length > 0) {
+
+				if (ROLLOVERED) ROLLOVERED.color.setHex(0x00ff80);
+
+				ROLLOVERED = intersects[0].face;
+				ROLLOVERED.color.setHex(0xff8000)
+
+			}
+		}
+
+
+		function onDocumentMouseDown(event) {
+			event.preventDefault();
+
+			var intersects = ray.intersectObjects(scene.children);
+
+			if (intersects.length > 0) {
+
+				if (isShiftDown) {
+					if (intersects[0].object != plane) {
+						scene.remove(intersects[0].object);
+					}
+
+				} else {
+					var position = new THREE.Vector3().add(intersects[0].point, intersects[0].object.matrixRotationWorld.multiplyVector3(intersects[0].face.normal.clone()));
+					addVoxel(scene, intersects, position.x, position.y + window.scrollY, position.z);
 				}
 
-				camera.position.x = 1400 * Math.sin( theta * Math.PI / 360 );
-				camera.position.z = 1400 * Math.cos( theta * Math.PI / 360 );
-				camera.lookAt( target );
-
-				renderer.render( scene, camera );
-
 			}
+		}
 
-		</script>
+		function onDocumentKeyDown(event) {
+			switch (event.keyCode) {
+				case 88: isXDown = true; break;  // x key
+				case 16: isShiftDown = true; break;  // shift key
+			}
+		}
 
-<div class = "page">
-  <!-- <div id="loading">
-    <img id="loading-image" src="https://media.giphy.com/media/RgzryV9nRCMHPVVXPV/source.gif" alt="Loading..." />
-  </div>  -->
-  <div class = "header">
-    <a href="about.html" style = "color: black; text-decoration: none; "><h1 style="padding-top: 30px; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">University of Chicago - TechTeam Ideathon 2021</h1> </a>
-	  <h1 style="padding-top: 30px; font-size: 4vw; text-align: center; font-family: 'Bebas Neue';">Prompts </h1>
-  </div> <!-- header -->
+		function onDocumentKeyUp(event) {
+			if (screen.width < 500) {
+				return
+			}
+			switch (event.keyCode) {
+				case 88: isXDown = false; break;
+				case 16: isShiftDown = false; break;
+			}
+		}
 
-    <br>
+		//
 
-    <div class = "content">
-      <div class = "promptdiv" style = "font-family: 'Bebas Neue'; ">
-        <h2 style = "font-family: 'Bebas Neue';"> technology and democracy </h2>
-        <p style = "font-size: 1.5vw;"> before leaving the presidential office, Donald Trump was banned from multiple tech platforms. 
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
 
-          <br>
-            how should we balance a company's agency versus potential conflicts in democratic values? 
+		function render() {
+			if (isXDown) {
+				theta += mouse2D.x * 3;
+			}
+			camera.position.x = 1400 * Math.sin(theta * Math.PI / 360);
+			camera.position.z = 1400 * Math.cos(theta * Math.PI / 360);
+			camera.lookAt(target);
+			renderer.render(scene, camera);
+		}
 
-           <br> what are ways we can measure when one "deserves" to be on such platforms?
-        </p>
-        
-        <h2 style = "font-family: 'Bebas Neue';"> algorithmic bias </h2>
-        <p style = "font-size: 1.5vw;"> how do we handle algorithmic bias towards inflammatory content? 
+	</script>
 
-          <br>
-            consider how a social media company’s business model needs to reconcile with fairness and prevent hate speech and fake news. 
-        </p>
-        
-        <h2 style = "font-family: 'Bebas Neue';"> data privacy </h2>
-        <p style = "font-size: 1.5vw;"> how can we help people take control of the level of privacy they want on the internet? 
+	<div class="page">
+		<nav class="navbar navbar-light">
+			<a href="http://www.ideathon.info/" class="homelink">
+				<h4 style="font-family: 'Bebas Neue'; vertical-align:middle;">University of Chicago - TechTeam Ideathon
+				</h4>
+			</a>
+			<a href="https://forms.gle/2x5c3VfTQ7r9PDHQ6" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; padding:5px; background-color:yellow; vertical-align:middle;">Register Here</h5>
+			</a>
+			<a href="schedule.html" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Schedule</h5>
+			</a>
+			<a href="mentors-judges.html" class="homelink register">
+				<h5 style="font-family: 'Bebas Neue'; vertical-align:middle;">Judges & Mentors</h5>
+			</a>
+			<a class="navbar-brand" href="http://uchicagotechteam.com/">
+				<img class="logo" src="logo.png" height="30" class="d-inline-block align-top" alt="">
+			</a>
+		</nav>
+		<div class="header" style="text-align: center;">
+				<h1 style="color: white; font-family: 'Bebas Neue';"> 
+					<div class="register" style="display:inline-block; font-family: 'Bebas Neue';">Prompts</div> 
+				</h1>
+				<p style="font-size: 10px; color: white;"><strong>click</strong>: add box, <strong>shift +
+						click</strong>: remove box, <strong>x</strong>: rotate grid
+				<p>
+			</div> <!-- header -->
 
-          <br>
-           what is the next step to transforming the long opt-in user agreements that no one reads to meaningful ways to inform the public about the rights they’re agreeing to?
-        </p>
-        
-        <h2 style = "font-family: 'Bebas Neue';"> environmental sustainability </h2>
-        <p style = "font-size: 1.5vw;"> in a world of single-use plastics and fast-pace consumerism, how can we leverage technology to support people who want to adopt a more environmentally sustainable lifestyle?
-        </p>
-        
-        <h2 style = "font-family: 'Bebas Neue';"> education and accessibility </h2>
-        <p style = "font-size: 1.5vw;">  how can we help improve tech literacy among the elderly in order to help them stay connected in this digital age? 
-          <br> what kinds of tools can we build to help underserved consumers of technology?
-        </p>
-        
-        <h2 style = "font-family: 'Bebas Neue';"> digital communities </h2>
-        <p style = "font-size: 1.5vw;">  how can we bring people who are spatially apart together virtually in an energizing way (think the opposite of a Zoom lecture)? 
-          <br> what ways can we promote meaningful exchanges of ideas instead of echo chambers on the internet?
-        </p>
+			<div class="content text-align-center row">
+				<div class="promptdiv my-1 col-11 offset-1"
+					style=" color: white; font-family: 'Bebas Neue';">
+					<h2 style="font-family: 'Bebas Neue'; color: springgreen;"> Technology and Democracy </h2>
+					<p style="font-family: Monospace;"> Nowadays, it's hard to imagine tech being apolitical. There have been outcries about 
+						freedom of speech and censorship. These heavy criticisms are coming from Washington, the court of public opinion, 
+						and even within the organizations themselves. What amendments should be made to Section 230 - if any at all? How 
+						should product builders think about managing their commercial interests with public demands? What mechanisms can 
+						be instituted to hold tech platform executives accountable? 
+					</p>
 
-        
+					<h2 style="font-family: 'Bebas Neue';color: springgreen;"> Algorithmic Bias </h2>
+					<p style="font-family: Monospace;">  “Algorithms are the new oil.” 
+					<br>
+					In 2017, the Economist published their article on data surpassing oil as the world's most valuable resource. However, 
+						as technologist Geoff Lewis pointed out, algorithms - not data - are the new oil. They take points of information 
+						from passive to active and, ultimately, actionable. Consequently, they are sources of national and geopolitical 
+						tension.  Think about TikTok's privacy controversy or the criticism of Facebook's newsfeed algorithm amplifying 
+						disinformation. We’ve optimized for efficiency and effectiveness. How should we now evaluate algorithms for their 
+						impact, not input?
+					</p>
 
-        <hr>
-        <p style = "font-size: 1.5vw;">fill out our <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeLGFSNjlDWOqyfhrAUZM7hzBpDQf-BRcIZwerOCuZh-HlkvA/viewform">interest form</a>
-           to be notified of latest updates and for the registration form</p>
+					<h2 style="font-family: 'Bebas Neue';color: springgreen;"> Data Privacy </h2>
+					<p style="font-family: Monospace;"> What gives us a right to privacy online? 
+					<br>
+					How can we help people take control of the level of privacy they want on the Internet? What is the next step to 
+						transforming the long opt-in user agreements that no one reads to meaningful ways to inform the public about the 
+						rights they're agreeing to?
+					</p>
 
-      </div> <!-- promptdiv -->
+					<h2 style="font-family: 'Bebas Neue';color: springgreen;"> Environmental Sustainability </h2>
+					<p style="font-family: Monospace;"> Sustainability, particularly in an environmental context, is a favorite buzzword in corporate 
+						and policy circles. In some cases, it is just a front for marginal progress. The last two decades have brought about 
+						improvements in climate technologies and material shifts in attitudes towards our relationship with the environment. However, 
+						it is still inaccessible to most of the world’s population. Therefore, what supply chain innovations are needed to produce and 
+						distribute green tech in transportation, food, housing, and more, at scale? How can incentives between entrepreneurial, moonshot 
+						visions and financial returns be better aligned? Perhaps you are aware of any scientific research that can be commercialized? 
+					</p>
 
-  </div> <!-- content -->
+					<h2 style="font-family: 'Bebas Neue';color: springgreen;"> Education and Accessibility </h2>
+					<p style="font-family: Monospace;"> The Biden Administration is planning a $3 to $4 trillion infrastructure bill. Many have argued 
+						that this is an opportunity for much needed improvements to America’s digital infrastructure, which the pandemic exposed as 
+						lacking. Differences in internet access, digital literacy, and software/hardware capabilities obstructed many people in working, 
+						learning, and connecting with others throughout the past year. What kinds of tools can we build to help underserved consumers of 
+						technology? How can we help improve tech literacy among the general population in order to have better informed digital users. Moreover, 
+						given that the internet has been a catalyst for decentralization, what will virtual-first K-12 and higher-ed learning look like?  
+					</p>
 
-</div> <!--page -->
+					<h2 style="font-family: 'Bebas Neue';color: springgreen;"> Digital Communities </h2>
+					<p style="font-family: Monospace;"> Meet me in the metaverse. 
+					<br>
+					How can we bring people who are spatially apart together virtually in an energizing way - think the opposite of a Zoom lecture? How can we 
+						promote meaningful exchanges of ideas instead of echo chambers on the Internet?
+					</p>
+
+
+
+					<hr>
+					<p>Fill out our <a
+							href="https://docs.google.com/forms/d/e/1FAIpQLSf7aya_Izzu1-BdYWjQ9bfyNu_4qCs-ajn9gfvjGVJpkKf3NQ/viewform">registration
+							form</a>
+						to join us Ideathon</p>
+
+				</div> <!-- promptdiv -->
+
+			</div> <!-- content -->
+
+		</div>
+		<!--page -->
 </body>
+
 </html>
